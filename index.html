@@ -928,7 +928,7 @@ body.sm-gated > header,body.sm-gated > main,body.sm-gated > .v18-report-overlay,
 })();
 </script><style id="v27-guide-css">
 .sm-guide-trigger{border:1px solid #d9e3f4;background:#fff;color:#24469b;border-radius:11px;padding:10px 14px;font-weight:750;cursor:pointer;display:inline-flex;align-items:center;gap:7px;box-shadow:0 2px 8px #1d39750d}
-.sm-guide-trigger:hover{background:#eff5ff}.sm-guide-mask[hidden]{display:none!important}.sm-guide-mask{position:fixed;inset:0;z-index:110000;background:#1523439c;backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;padding:20px}
+.sm-guide-trigger:hover{background:#eff5ff}.sm-guide-mask[hidden]{display:none!important}.sm-guide-mask{position:fixed;inset:0;z-index:200100;background:#1523439c;backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;padding:20px}
 .sm-guide-dialog{background:#fff;border-radius:20px;width:min(880px,100%);max-height:min(780px,90dvh);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 75px #0d1b3b42;color:#1e293b}
 .sm-guide-head{padding:23px 27px 17px;border-bottom:1px solid #e5ebf4;display:flex;align-items:flex-start;justify-content:space-between;gap:15px}
 .sm-guide-head h2{margin:0 0 5px;font-size:23px;color:#172e65}.sm-guide-head p{margin:0;color:#64748b;font-size:14px}.sm-guide-close{border:0;background:#eef2f8;color:#475569;width:37px;height:37px;border-radius:10px;cursor:pointer;font-size:23px}
@@ -954,7 +954,7 @@ body.sm-gated > header,body.sm-gated > main,body.sm-gated > .v18-report-overlay,
  function close(){mask.hidden=true;if(previous?.isConnected)previous.focus()}
  mask.querySelector('.sm-guide-close').onclick=close;mask.querySelector('#smGuideNext').onclick=()=>current===sections.length-1?close():show(current+1);mask.onclick=e=>{if(e.target===mask)close()};document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!mask.hidden){e.stopImmediatePropagation();close()}} ,true);
  const header=document.querySelector('header');if(header){const b=document.createElement('button');b.type='button';b.className='sm-guide-trigger';b.textContent='ⓘ Hướng dẫn';b.onclick=open;header.appendChild(b)}
- const entry=document.querySelector('#smEntry');if(entry){const b=document.createElement('button');b.type='button';b.className='sm-guide-entry';b.textContent='ⓘ Xem hướng dẫn sử dụng';b.onclick=open;const inner=entry.querySelector('.sm-entry-inner');inner?.appendChild(b)}
+ const entry=document.querySelector('#smEntry');if(entry){const b=document.createElement('button');b.type='button';b.className='sm-guide-entry';b.textContent='ⓘ Xem hướng dẫn sử dụng';b.onclick=e=>{e.preventDefault();open()};const inner=entry.querySelector('.sm-entry-inner');inner?.appendChild(b)}
  window.openSpeakingMatrixGuide=open;
 })();
 </script></body></html>
