@@ -1,0 +1,929 @@
+<!doctype html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Speaking Matrix Trainer — V21</title><style>
+:root{font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:#18243a;background:#f4f7fc}*{box-sizing:border-box}body{margin:0}button,input,textarea,select{font:inherit}button{cursor:pointer;border:0}header{background:#fff;border-bottom:1px solid #e4e9f2;padding:18px max(20px,calc((100vw - 1160px)/2));display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:21px;font-weight:800;color:#3055cc}.brand span{color:#7b88a3;font-weight:500;font-size:13px;display:block}.pill{background:#e9efff;color:#365acb;border-radius:100px;padding:8px 12px;font-weight:700;font-size:12px}main{max-width:1160px;margin:auto;padding:28px 20px 70px}.hero{background:linear-gradient(120deg,#243d94,#5878ed);border-radius:24px;padding:32px;color:#fff;display:flex;justify-content:space-between;align-items:center;gap:20px}.hero h1{font-size:30px;margin:0 0 10px}.hero p{max-width:600px;line-height:1.65;color:#e1e8ff;margin:0}.hero .symbol{font-size:64px;opacity:.9}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0}.stat,.panel{background:#fff;border:1px solid #e4e9f2;border-radius:18px;padding:20px}.stat strong{display:block;font-size:27px;margin:7px 0}.muted{color:#78849b;font-size:13px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0 16px}.tab{padding:11px 18px;border-radius:11px;background:#e8edf7;color:#52617a;font-weight:700}.tab.active{background:#355bd5;color:white}.view{display:none}.view.active{display:block}.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}.panel h2{margin:0 0 8px;font-size:21px}.panel h3{margin:0 0 12px;font-size:16px}.levels{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}.level{border:2px solid #e4e9f2;border-radius:14px;padding:16px;text-align:left;background:#fff}.level.active{border-color:#4567e2;background:#f0f4ff}.level strong{display:block;font-size:20px;margin-bottom:5px}.level small{color:#748198}.topic{font-size:25px;font-weight:800;margin:15px 0 8px}.en{color:#355bd5;font-weight:700}.prompt{background:#f4f7ff;border-radius:12px;padding:14px;margin:12px 0;line-height:1.7}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.btn{background:#365bd4;color:white;padding:12px 16px;border-radius:11px;font-weight:700}.btn.secondary{background:#edf1fa;color:#354b78}.btn.danger{background:#fff0f0;color:#c23b3b}.btn:disabled{opacity:.45;cursor:not-allowed}textarea,input,select{width:100%;border:1px solid #dce3ef;border-radius:11px;padding:12px;background:white;color:#23314a}textarea{min-height:115px;resize:vertical;line-height:1.6}.timer{font-size:62px;font-weight:800;text-align:center;font-variant-numeric:tabular-nums;color:#3156d2;margin:16px 0}.timer.running{color:#dc7535}.progress{height:9px;border-radius:20px;background:#e6ecf7;overflow:hidden}.bar{height:100%;background:#5878ed;width:0%;transition:width .3s}.note{font-size:13px;line-height:1.7;color:#66758e}.step{padding:13px 0;border-bottom:1px solid #edf0f6}.step:last-child{border:0}.step b{color:#3458d1}.chips{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.chip{background:#edf2ff;color:#3454af;padding:8px 12px;border-radius:30px;font-size:13px}.history{width:100%;border-collapse:collapse}.history th,.history td{padding:11px;text-align:left;border-bottom:1px solid #edf0f6;font-size:13px}.history th{color:#75829b}.hidden{display:none!important}.hint{color:#61718d;font-size:13px;margin:8px 0}.feedback{background:#eaf8ef;color:#17653b;padding:12px;border-radius:10px;margin-top:12px}.footer{text-align:center;color:#8b95a8;margin-top:32px;font-size:12px}@media(max-width:780px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.levels{grid-template-columns:repeat(2,1fr)}.hero .symbol{display:none}.hero h1{font-size:24px}.timer{font-size:50px}}@media(max-width:420px){.stats{gap:8px}.stat{padding:13px}.levels{gap:8px}.level{padding:12px}main{padding:18px 12px}}
+
+/* v2 enhancements */
+:root{--accent:#365bd4}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #93b5ff;outline-offset:2px}.mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.mini-card{padding:16px;border-radius:14px;background:#f4f7ff;border:1px solid #e1e9fc}.mini-card strong{display:block;font-size:24px;color:#304db0}.checkline{display:flex;gap:10px;align-items:center;margin:12px 0}.checkline input{width:auto}.plan-item{display:flex;justify-content:space-between;gap:12px;align-items:center;border-bottom:1px solid #e9edf5;padding:13px 0}.plan-item:last-child{border:0}.plan-item.done{opacity:.55}.plan-item.done b{text-decoration:line-through}.badge-small{display:inline-block;padding:4px 9px;background:#e8eeff;color:#3557b8;border-radius:20px;font-size:12px}.transcript{white-space:pre-wrap;min-height:100px}.score{font-size:38px;font-weight:800;color:#3156d2}.warning{background:#fff7e8;padding:12px;border-radius:12px;color:#855b13;font-size:13px}.settings-row{display:flex;gap:12px;align-items:end;flex-wrap:wrap}.settings-row label{flex:1;min-width:150px;font-weight:700}.settings-row label select{margin-top:7px}@media(max-width:700px){.mini-grid{grid-template-columns:1fr}.plan-item{align-items:flex-start}}
+.lesson-parts{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}.lesson-parts span{font-size:12px;background:#dfe8ff;color:#2448aa;border-radius:8px;padding:7px 9px}.prompt p{margin:9px 0}.prompt li{margin:6px 0}</style><style id="v15-design-system">
+:root{--ink:#172b4d;--soft:#64748b;--brand:#345bd5;--line:#e5eaf3;--canvas:#f5f7fc}
+body{color:var(--ink);background:var(--canvas)}
+header{box-shadow:0 1px 12px rgba(23,43,77,.035)}
+.brand{letter-spacing:-.55px}.brand span{letter-spacing:0}
+.hero{background:linear-gradient(115deg,#233d88 0%,#375ed1 65%,#5c7cf0 100%);box-shadow:0 12px 35px rgba(39,77,175,.14)}
+.hero h1{letter-spacing:-.6px}.stat{box-shadow:0 4px 18px rgba(30,51,88,.035)}
+.primary-nav{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px!important}
+.primary-nav button{min-height:66px;border:1px solid #dce5f5!important;border-radius:16px!important;background:#fff!important;color:#284069!important;font-size:15px!important;font-weight:800!important;box-shadow:0 4px 14px rgba(30,51,88,.04);transition:transform .15s,box-shadow .15s,border-color .15s}
+.primary-nav button:hover{transform:translateY(-2px);border-color:#91a8ef!important;box-shadow:0 10px 24px rgba(30,51,88,.09)}
+.v13-modal{background:rgba(14,26,49,.62)!important;backdrop-filter:blur(6px)!important}
+.v13-dialog{background:#f7f9fd!important;border:1px solid rgba(255,255,255,.75);box-shadow:0 30px 100px rgba(14,27,54,.26)!important;border-radius:23px!important}
+.v13-head{padding:17px 24px!important;min-height:76px}.v13-head h2{font-size:22px!important;letter-spacing:-.5px;color:#1e3156}
+.v13-close{border-radius:13px!important;background:#f0f3fa!important;transition:background .15s}.v13-close:hover{background:#dfe8fa!important}
+.v13-content{padding:20px 24px!important}
+.v13-content .panel{border-color:#e2e9f4;box-shadow:0 5px 20px rgba(28,49,89,.035)}
+/* Roadmap cards: content anchored to both edges with deliberate alignment */
+.v13-content #planItems{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:stretch}
+.v13-content #planItems .v12-lesson{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:0;margin:0;padding:19px 20px 16px!important;min-width:0;min-height:226px;border:1px solid #e0e7f2;border-radius:19px;background:#fff;box-shadow:0 3px 12px rgba(25,48,87,.035);transition:transform .16s,border-color .16s,box-shadow .16s}
+.v13-content #planItems .v12-lesson:hover{transform:translateY(-2px);border-color:#a9baf3;box-shadow:0 12px 28px rgba(38,67,126,.09)}
+.v13-content #planItems .v12-lesson.v12-selected{border-color:#6485ef;box-shadow:0 0 0 3px rgba(77,112,226,.12)}
+.v13-content #planItems .v12-lesson.done{background:#f9fdfb;border-color:#bce6d0;opacity:1}
+.v13-content #planItems .v12-lesson.done b{text-decoration:none}
+.v13-content #planItems .v12-lesson-main{width:100%;min-width:0}
+.v13-content #planItems .v12-lesson-top{display:flex;align-items:center;justify-content:space-between;width:100%;margin:0 0 13px;gap:12px}
+.v13-content #planItems .v12-day{font-size:12px;font-weight:850;letter-spacing:.5px;color:#687994}
+.v13-content #planItems .v12-dot{flex:0 0 25px;width:25px;height:25px;border-radius:50%;background:#edf2f9;border:1px solid #dce4f0}
+.v13-content #planItems .v12-dot.done{background:#16885e;color:white;border-color:#16885e}
+.v13-content #planItems .v12-title{display:block;font-size:17px;line-height:1.3;letter-spacing:-.3px;color:#203457;overflow-wrap:anywhere;min-height:44px}
+.v13-content #planItems .v12-meta{display:flex;align-items:center;justify-content:flex-start;gap:7px;margin:11px 0 0;flex-wrap:wrap}
+.v13-content #planItems .v12-meta span{font-size:11px;line-height:1.2;padding:6px 9px;background:#f0f3fa;color:#536785;border-radius:99px}
+.v13-content #planItems .v12-detail{font-size:12px;color:#77859b;margin:10px 0 12px}
+.v13-content #planItems .v12-study{width:100%;margin-top:auto;min-height:42px;padding:10px 13px;border-radius:11px;display:flex;align-items:center;justify-content:space-between;background:#eaf0ff;color:#3156c0;font-size:13px;letter-spacing:.1px}
+.v13-content #planItems .v12-selected .v12-study{background:#355dd6;color:#fff}
+.v13-content #planItems .done .v12-study{background:#e4f5ec;color:#177b54}
+.v13-content #planItems .b11-progress{margin:0 0 12px}
+.v13-content #roadmap>.panel{padding:22px!important}
+.v13-content #roadmap h2{font-size:20px}
+.v13-content .b11-note{background:#f0f4ff;color:#485d84;border:1px solid #e1e9ff}
+.v13-content .b11-metric{background:white;border-color:#e4eaf4}
+.v14-learning .v13-dialog{width:min(1460px,calc(100vw - 24px))!important;height:min(96dvh,1050px)!important}
+.v14-learning .v13-content{padding:17px 22px!important;gap:12px!important}
+.v14-learning .learning-tabs{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px!important}
+.v14-learning .learning-tabs .tab{border-radius:12px;padding:12px 9px!important;white-space:normal;text-align:center}
+.v14-learning .global-levels{background:#fff;border:1px solid #e3e9f4;border-radius:17px}
+.v14-learning .global-levels .level{border-radius:12px}
+.v14-learning .global-lesson-context{border-radius:14px}
+.v14-learning .panel{border-radius:17px}
+@media(max-width:1000px){.v13-content #planItems{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.primary-nav{grid-template-columns:1fr!important}.primary-nav button{min-height:53px}.v13-modal{padding:5px!important}.v13-dialog{border-radius:15px!important;height:97dvh!important}.v13-content{padding:12px!important}.v13-content #roadmap>.panel{padding:14px!important}.v13-content #planItems{grid-template-columns:1fr;gap:10px}.v13-content #planItems .v12-lesson{min-height:195px;padding:16px!important}.v13-head{padding:12px 14px!important;min-height:62px}.v13-head h2{font-size:18px!important}.v14-learning .learning-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.v14-learning .v13-content{padding:10px!important}}
+
+/* V16 — edge-to-edge workspace and roomy dialogs */
+:root{--v16-space:clamp(14px,1.8vw,32px)}
+header{padding-left:var(--v16-space)!important;padding-right:var(--v16-space)!important}
+main{max-width:none!important;width:100%!important;padding-left:var(--v16-space)!important;padding-right:var(--v16-space)!important}
+.hero{width:100%;min-height:112px;align-items:center}.hero p{max-width:1100px}
+.stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+.primary-nav{width:100%;grid-template-columns:repeat(3,minmax(0,1fr))!important}
+.primary-nav button{min-width:0!important}
+.v13-modal{padding:8px!important}
+.v13-dialog,.v14-learning .v13-dialog{width:calc(100vw - 16px)!important;max-width:none!important;height:calc(100dvh - 16px)!important;max-height:none!important;border-radius:20px!important}
+.v13-head{padding:17px var(--v16-space)!important}
+.v13-content,.v14-learning .v13-content{padding:18px var(--v16-space)!important}
+.v13-content #planItems{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.v13-content #planItems .v12-lesson{padding:19px!important;min-height:218px}
+.v13-content #roadmap>.panel{padding:22px!important}
+.v16-toolbar{display:grid;grid-template-columns:minmax(210px,1fr) auto;gap:12px;align-items:center;margin:16px 0}
+.v16-toolbar input{min-width:0;background:#fff}
+.v16-statuses{display:flex;flex-wrap:wrap;gap:7px}
+.v16-statuses button{padding:10px 13px;border-radius:10px;background:#edf2fa;color:#4b6084;font-weight:750;font-size:13px}
+.v16-statuses button.active{background:#355dd6;color:white}
+.v16-results{font-size:12px;color:#6e7d96;margin:0 0 10px}
+.v13-content #planItems .v12-lesson.v16-filtered{display:none!important}
+.v13-content #planItems .v12-title{min-height:44px}
+.v13-content #planItems .v12-study{margin-top:auto}
+@media(max-width:1500px){.v13-content #planItems{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:950px){.v13-content #planItems{grid-template-columns:repeat(2,minmax(0,1fr))}.v16-toolbar{grid-template-columns:1fr}}
+@media(max-width:600px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.primary-nav{grid-template-columns:1fr!important}.v13-content #planItems{grid-template-columns:1fr}.v13-dialog,.v14-learning .v13-dialog{width:calc(100vw - 8px)!important;height:calc(100dvh - 8px)!important}.v13-modal{padding:4px!important}.v13-content,.v14-learning .v13-content{padding:12px!important}.v16-statuses button{flex:1;padding:9px 7px;font-size:12px}}
+</style><style id="v17-dashboard-style">
+@media(min-width:850px){body{min-height:100dvh}main{display:flex!important;flex-direction:column!important;min-height:0!important;padding-top:12px!important;padding-bottom:14px!important;gap:0}.hero{min-height:88px!important;padding:14px 22px!important}.stats{margin:10px 0!important}.primary-nav{margin:4px 0 10px!important}.v17-dashboard{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1.28fr) minmax(0,1fr);grid-template-rows:minmax(0,1.15fr) minmax(0,.85fr);gap:12px;margin-top:0}.v17-panel{min-height:0;overflow:hidden}.v17-continue{grid-row:1/3}.v17-panel{display:flex;flex-direction:column}.v17-continue .v17-topic{font-size:clamp(25px,2.5vw,38px)}.v17-panel .v17-grow{flex:1}.v17-week{min-height:75px}}
+.v17-dashboard{width:100%;margin-top:10px}.v17-panel{background:#fff;border:1px solid #e0e7f3;border-radius:18px;padding:clamp(15px,1.5vw,24px);box-shadow:0 5px 20px rgba(29,53,108,.04);gap:13px}.v17-eyebrow{font-size:12px;font-weight:800;color:#5270a9;text-transform:uppercase;letter-spacing:.07em}.v17-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.v17-panel h2{margin:0;font-size:19px;color:#172c50}.v17-topic{font-size:26px;font-weight:850;letter-spacing:-.6px;color:#203c7a;margin:0}.v17-muted{color:#71809a;font-size:13px;line-height:1.5}.v17-chip{display:inline-flex;background:#edf2ff;color:#3d5fb4;padding:7px 11px;border-radius:100px;font-size:12px;font-weight:750}.v17-progress{height:10px;background:#e9eef8;border-radius:20px;overflow:hidden}.v17-progress span{height:100%;display:block;background:linear-gradient(90deg,#385dd4,#7796ff);border-radius:20px;transition:width .2s}.v17-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.v17-step{padding:14px;background:#f4f7fd;border:1px solid #e8eef8;border-radius:12px;color:#344b72;font-size:13px;font-weight:700}.v17-step small{display:block;font-size:11px;color:#8290a6;font-weight:500;margin-top:4px}.v17-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto}.v17-action{border-radius:12px;background:#355bd5;color:#fff;font-weight:800;padding:13px 18px;min-height:46px}.v17-action.alt{background:#edf2ff;color:#3555a5}.v17-week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px;align-items:stretch}.v17-day{border-radius:12px;background:#f2f5fb;padding:8px 2px;text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;min-width:0}.v17-day b{font-size:12px;color:#52617d}.v17-day span{font-size:17px;font-weight:800;color:#304a78}.v17-day i{font-style:normal;color:#d32f39;font-size:18px;line-height:1}.v17-day.today{outline:2px solid #9bb1fa;outline-offset:-2px}.v17-count{font-size:32px;font-weight:850;color:#294dbb}.v17-divider{border-top:1px solid #e9edf6}.v17-dashboard button:focus-visible{outline:3px solid #9db2ff;outline-offset:2px}
+@media(max-width:849px){.v17-dashboard{display:grid;grid-template-columns:1fr;gap:12px}.v17-panel{min-height:230px}.v17-continue{min-height:370px}}
+@media(max-width:480px){.v17-panel{padding:15px}.v17-steps{gap:6px}.v17-step{padding:10px}.v17-week{gap:3px}.v17-day{padding:7px 1px}.v17-day span{font-size:14px}}
+</style><style id="v18-clean-ui">
+:root{--v18-ink:#15243b;--v18-sub:#65748c;--v18-line:#e5eaf2;--v18-blue:#3158d5;--v18-bg:#f6f8fc}
+body{background:var(--v18-bg)!important;color:var(--v18-ink)}header{background:#fff!important;border-bottom:1px solid var(--v18-line)!important;box-shadow:none!important;padding:12px 24px!important}.brand{font-size:18px!important}.brand span{font-size:11px!important}.hero{display:none!important}main{max-width:none!important;padding:16px 24px 20px!important}.stats{order:2!important;gap:12px!important;margin:0 0 12px!important}.stat{box-shadow:none!important;border:1px solid var(--v18-line)!important;border-radius:14px!important;padding:13px 17px!important}.stat strong{font-size:25px!important;color:var(--v18-ink)!important}.stat .muted{font-size:12px!important}.primary-nav{order:1!important;margin:0 0 12px!important;background:transparent!important;padding:0!important;gap:10px!important}.primary-nav button{border:1px solid var(--v18-line)!important;background:#fff!important;border-radius:12px!important;box-shadow:none!important;font-size:14px!important;min-height:48px!important}.primary-nav button:hover{border-color:#9baef4!important;background:#f7f9ff!important}.v17-dashboard{order:3!important;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)!important;grid-template-rows:minmax(0,1fr) minmax(0,1fr)!important;gap:12px!important}.v17-panel{box-shadow:none!important;border:1px solid var(--v18-line)!important;border-radius:16px!important;padding:20px!important;gap:12px!important}.v17-topic{font-size:clamp(24px,2.1vw,34px)!important;color:var(--v18-ink)!important}.v17-panel h2{font-size:17px!important;color:var(--v18-ink)!important}.v17-eyebrow{color:var(--v18-sub)!important}.v17-step{background:#f7f9fd!important;border:1px solid #edf0f5!important}.v17-chip{background:#eff3ff!important;color:#3158b7!important}.v17-action{background:var(--v18-blue)!important;border:0!important}.v17-action.alt{background:#eef2fb!important;color:#2c4fa9!important}.v17-week{min-height:60px!important}.v18-report-launch{margin-top:4px!important}.v18-report-overlay{position:fixed;inset:0;background:rgba(17,28,48,.48);z-index:9999;display:none;padding:14px;align-items:center;justify-content:center}.v18-report-overlay.open{display:flex}.v18-report-dialog{width:min(1500px,100%);height:min(95dvh,1050px);background:#f7f9fc;border-radius:20px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 90px #15243b30}.v18-report-header{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:17px 24px;background:#fff;border-bottom:1px solid var(--v18-line)}.v18-report-header h2{margin:0;font-size:22px;color:var(--v18-ink)}.v18-report-header p{margin:3px 0 0;color:var(--v18-sub);font-size:12px}.v18-report-close{border:1px solid var(--v18-line);background:#fff;width:38px;height:38px;border-radius:11px;font-size:24px;cursor:pointer}.v18-report-body{overflow:auto;padding:20px 24px;flex:1;min-height:0}.v18-report-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px;flex-wrap:wrap}.v18-report-toolbar select{border:1px solid var(--v18-line);border-radius:10px;background:#fff;padding:10px 14px;font:inherit;color:var(--v18-ink)}.v18-report-note{color:var(--v18-sub);font-size:12px}.v18-report-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:12px}.v18-kpi,.v18-chart-card{background:#fff;border:1px solid var(--v18-line);border-radius:14px;padding:17px;min-width:0}.v18-kpi span{font-size:12px;color:var(--v18-sub)}.v18-kpi strong{display:block;font-size:28px;margin-top:6px;color:var(--v18-ink)}.v18-kpi small{font-size:11px;color:var(--v18-sub)}.v18-charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.v18-chart-card h3{margin:0 0 5px;font-size:16px}.v18-chart-card p{margin:0 0 15px;font-size:12px;color:var(--v18-sub)}.v18-chart-card svg{width:100%;height:230px;display:block}.v18-chart-empty{height:230px;display:flex;align-items:center;justify-content:center;color:#8896aa;background:#f9fafc;border-radius:10px;text-align:center;font-size:13px}.v18-report-footer{display:flex;gap:10px;justify-content:flex-end;padding:12px 24px;border-top:1px solid var(--v18-line);background:#fff}.v18-report-footer button{border:1px solid var(--v18-line);border-radius:10px;background:#fff;padding:10px 15px;font-weight:650;cursor:pointer}.v18-report-footer .primary{background:var(--v18-blue);color:white;border-color:var(--v18-blue)}.v18-legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--v18-sub)}.v18-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px}.v18-report-summary{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px}.v18-summary-card{background:#fff;border:1px solid var(--v18-line);border-radius:14px;padding:17px}.v18-summary-card h3{margin:0 0 12px;font-size:16px}.v18-summary-card p{margin:7px 0;font-size:13px;color:#42536e}.v18-summary-card strong{color:#1e3358}.v18-report-dashboard-link{width:100%;margin-top:auto}.v18-no-scroll{overflow:hidden}
+@media(max-width:849px){main{padding:12px!important}.v17-dashboard{grid-template-columns:1fr!important}.v18-charts,.v18-report-summary{grid-template-columns:1fr}.v18-report-kpis{grid-template-columns:repeat(2,1fr)}.v18-report-body{padding:14px}.v18-report-header{padding:14px}.v18-report-dialog{height:calc(100dvh - 12px);border-radius:13px}.v18-report-overlay{padding:6px}}
+@media(max-width:480px){.v18-report-kpis{gap:7px}.v18-kpi{padding:12px}.v18-kpi strong{font-size:22px}.v18-chart-card{padding:12px}.v18-chart-card svg{height:190px}.v18-report-footer{flex-wrap:wrap}}
+</style><style id="v19-clean-dashboard">
+/* V19 — Calm learning dashboard */
+:root{--v19-bg:#f6f8fb;--v19-ink:#18263d;--v19-sub:#708098;--v19-line:#e6ebf2;--v19-blue:#335fda}
+body{background:var(--v19-bg)!important;color:var(--v19-ink)!important}
+header{height:68px!important;padding:12px clamp(20px,3vw,48px)!important;background:#fff!important;border-bottom:1px solid var(--v19-line)!important}
+.brand{font-size:19px!important;letter-spacing:-.6px!important;color:#234bc0!important}.brand span{font-size:11px!important;font-weight:500!important;color:#8a96a9!important}.pill{font-size:12px!important}
+main{height:calc(100dvh - 68px)!important;min-height:620px!important;max-width:1720px!important;margin:0 auto!important;padding:clamp(18px,2.2vh,28px) clamp(20px,3vw,44px) 24px!important;display:flex!important;flex-direction:column!important;gap:16px!important;overflow:hidden!important}
+.hero{display:none!important}.global-lesson-context,#b11Current{display:none!important}
+.v19-intro{order:0;display:flex;align-items:end;justify-content:space-between;gap:14px;flex:none}.v19-intro h1{font-size:clamp(24px,2.3vw,34px);letter-spacing:-1.15px;line-height:1.15;margin:0;color:var(--v19-ink);font-weight:750}.v19-intro p{margin:8px 0 0;font-size:13px;color:var(--v19-sub)}.v19-date{font-size:12px;color:var(--v19-sub);white-space:nowrap}
+.primary-nav{order:1!important;display:flex!important;gap:6px!important;background:#eef1f7!important;padding:5px!important;border-radius:13px!important;margin:0!important;flex:none!important;align-self:flex-start!important;box-shadow:none!important}
+.primary-nav button{border:0!important;border-radius:9px!important;min-height:39px!important;padding:9px 18px!important;background:transparent!important;color:#64738c!important;font-size:13px!important;font-weight:650!important;box-shadow:none!important;white-space:nowrap!important}.primary-nav button:hover{background:#fff!important;color:#254fc6!important}.primary-nav button.v19-primary,.primary-nav button:first-child{background:#fff!important;color:#264fbf!important;box-shadow:0 1px 5px #17284912!important}.primary-nav .v18-report-launch{margin:0!important}
+.v17-dashboard{order:2!important;display:grid!important;grid-template-columns:minmax(0,1.28fr) minmax(330px,.72fr)!important;grid-template-rows:minmax(0,1fr) minmax(0,.8fr)!important;gap:16px!important;min-height:0!important;flex:1!important;margin:0!important}
+.v17-panel{background:#fff!important;border:1px solid var(--v19-line)!important;border-radius:18px!important;box-shadow:0 2px 10px #22365405!important;padding:clamp(19px,2.3vw,32px)!important;gap:12px!important;min-width:0!important;overflow:hidden!important}
+.v17-continue{grid-row:1 / 3!important;display:flex!important;flex-direction:column!important;background:linear-gradient(145deg,#fff 60%,#f8faff)!important}
+.v17-head{gap:12px!important}.v17-eyebrow{font-size:12px!important;letter-spacing:.07em!important;text-transform:uppercase!important;color:#7e8ba1!important;font-weight:750!important}.v17-chip{border-radius:100px!important;background:#eff3ff!important;color:#345ac2!important;padding:6px 11px!important;font-size:11px!important}.v17-topic{font-size:clamp(30px,3vw,46px)!important;letter-spacing:-1.5px!important;line-height:1.16!important;margin:9px 0!important;color:var(--v19-ink)!important}.v17-muted{color:var(--v19-sub)!important;font-size:13px!important}.v17-steps{margin-top:clamp(14px,3vh,36px)!important}.v17-step{background:#f7f9fc!important;border:1px solid #eff2f7!important;border-radius:10px!important}.v17-panel h2{font-size:16px!important;letter-spacing:-.3px!important}.v17-action{background:var(--v19-blue)!important;border-radius:11px!important;box-shadow:none!important;font-size:14px!important}.v17-action.alt{background:#f0f3fa!important;color:#39527e!important}.v17-progress{background:#edf1f7!important}.v17-progress span{background:#426bdf!important}.v17-count{font-size:30px!important;letter-spacing:-1px!important}.v17-week{min-height:60px!important}
+.stats{order:3!important;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important;flex:none!important;margin:0!important}.stat{padding:14px 18px!important;border-radius:13px!important;border:1px solid var(--v19-line)!important;box-shadow:none!important;background:#fff!important;gap:3px!important}.stat strong{font-size:23px!important;letter-spacing:-.7px!important}.stat .muted{font-size:11px!important;color:var(--v19-sub)!important}.stat .muted:last-child{display:none!important}
+.v18-report-dialog{background:#f6f8fb!important}.v18-chart-card,.v18-kpi,.v18-summary-card{border-color:var(--v19-line)!important;box-shadow:none!important}
+@media(min-width:1000px) and (max-height:790px){main{gap:11px!important;padding-top:14px!important;padding-bottom:14px!important}.v19-intro p{margin-top:4px}.v17-panel{padding:17px!important}.v17-topic{font-size:30px!important}.v17-steps{margin-top:8px!important}.stat{padding:9px 14px!important}.v17-dashboard{gap:11px!important}}
+@media(max-width:900px){main{height:auto!important;min-height:calc(100dvh - 68px)!important;overflow:visible!important}.v17-dashboard{grid-template-columns:1fr!important;grid-template-rows:auto!important;flex:none!important}.v17-continue{grid-row:auto!important;min-height:380px}.stats{grid-template-columns:repeat(2,1fr)!important}.primary-nav{align-self:stretch!important;overflow-x:auto!important}.v19-date{display:none}.v19-intro h1{font-size:26px}}
+@media(max-width:520px){header{padding:12px 16px!important}main{padding:16px!important}.v17-panel{padding:18px!important}.v17-topic{font-size:28px!important}.primary-nav button{padding:9px 12px!important;font-size:12px!important}.v19-intro p{font-size:12px}.stats{gap:8px!important}.stat{padding:12px!important}}
+</style><style id="v20-layout-fixes">
+/* Actual Chromium-tested dashboard fixes */
+main{min-height:0!important;gap:13px!important;padding-top:18px!important;padding-bottom:18px!important}
+.v19-intro{min-height:54px!important}
+.primary-nav{order:1!important}
+.v17-dashboard{order:2!important;grid-template-columns:minmax(0,1.3fr) minmax(310px,.7fr)!important;grid-template-rows:minmax(185px,1fr) minmax(185px,1fr)!important;gap:13px!important;min-height:350px!important}
+.v17-panel{padding:clamp(14px,1.6vw,23px)!important;gap:9px!important;overflow:visible!important;min-height:0!important}
+.v17-continue{grid-row:1/3!important;gap:10px!important}
+.v17-continue .v17-head{flex:none!important}
+.v17-continue .v17-topic{font-size:clamp(23px,2.3vw,34px)!important;margin:5px 0!important}
+.v17-continue .v17-divider{margin:3px 0!important}
+.v17-continue .v17-steps{margin:5px 0!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;min-height:0!important;align-content:start!important;flex:0 1 auto!important}
+.v17-continue .v17-step{padding:9px 12px!important;min-height:55px!important}
+.v17-continue .v17-step small{font-size:11px!important}
+.v17-continue .v17-actions{margin-top:auto!important;flex:none!important;display:flex!important;gap:9px!important}
+.v17-continue .v17-action{min-height:42px!important;flex:1!important}
+.v17-panel .v17-grow{min-height:0!important}
+.v17-count{display:flex!important;align-items:baseline!important;gap:8px!important;flex-wrap:wrap!important;line-height:1.15!important}
+.v17-count .v17-muted{font-size:12px!important;letter-spacing:0!important}
+.v17-week{display:grid!important;grid-template-columns:repeat(7,minmax(0,1fr))!important;gap:6px!important;min-height:68px!important;align-items:stretch!important;flex:1!important}
+.v17-day{min-width:0!important;min-height:65px!important;padding:6px 2px!important}
+.stats{order:3!important;gap:12px!important}.stat{min-height:74px!important}
+@media(min-width:901px) and (max-height:760px){.v17-dashboard{grid-template-rows:minmax(155px,1fr) minmax(155px,1fr)!important}.v17-panel{padding:12px!important}.v17-continue .v17-step{min-height:42px!important;padding:5px 9px!important}.v17-continue .v17-step small{display:none!important}.v17-continue .v17-topic{font-size:23px!important}.v19-intro{min-height:45px!important}.stats .stat{min-height:55px!important;padding:7px 12px!important}}
+@media(max-width:900px){main{height:auto!important;overflow:visible!important}.v17-dashboard{grid-template-columns:1fr!important;grid-template-rows:auto!important;min-height:0!important}.v17-continue{grid-row:auto!important}.v17-panel{min-height:200px!important}.v17-week{min-height:80px!important}}
+@media(max-width:520px){.v17-continue .v17-steps{grid-template-columns:1fr!important}.v17-continue .v17-actions{flex-direction:column!important}.v17-panel{padding:16px!important}}
+
+/* V21 visual refresh — restrained dialogs and expressive navigation */
+.v13-modal{padding:clamp(16px,4vh,48px)!important;background:rgba(16,29,52,.48)!important}
+.v13-dialog,.v14-learning .v13-dialog{width:min(1080px,calc(100vw - 44px))!important;height:min(760px,calc(100dvh - 72px))!important;max-height:calc(100dvh - 32px)!important;border-radius:22px!important;background:#fff!important;box-shadow:0 30px 90px rgba(18,33,63,.23)!important}
+.v14-learning .v13-dialog{width:min(1150px,calc(100vw - 44px))!important;height:min(800px,calc(100dvh - 72px))!important}
+.v13-head{background:#fff!important;border-bottom:1px solid #e8edf5!important;padding:19px 25px!important}
+.v13-head h2{font-size:21px!important;letter-spacing:-.45px!important}
+.v13-content{background:#fafbfe!important;padding:22px 25px!important;overflow-y:auto!important}
+.v18-report-overlay{padding:clamp(14px,4vh,50px)!important}
+.v18-report-dialog{width:min(1180px,calc(100vw - 44px))!important;height:min(810px,calc(100dvh - 72px))!important;border-radius:22px!important}
+.primary-nav{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;align-self:stretch!important;width:100%!important;gap:8px!important;padding:7px!important;background:#e9eef8!important;border-radius:17px!important}
+.primary-nav button{display:flex!important;align-items:center!important;justify-content:center!important;gap:10px!important;min-height:58px!important;padding:12px!important;border-radius:12px!important;font-size:14px!important;font-weight:750!important;white-space:normal!important;line-height:1.2!important}
+.primary-nav button.v19-primary,.primary-nav button:first-child{background:#fff!important;box-shadow:0 3px 12px rgba(35,57,103,.09)!important}
+.v21-icon{display:inline-flex;align-items:center;justify-content:center;width:23px;height:23px;flex-shrink:0;color:#4e6dc0}
+.v21-icon svg{width:21px;height:21px;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;fill:none}
+.v17-steps{gap:12px!important}
+.v17-continue .v17-step{position:relative;display:flex!important;flex-direction:column!important;justify-content:center!important;gap:4px!important;padding:17px 18px 17px 59px!important;min-height:91px!important;border:1px solid #e6ecf7!important;border-radius:15px!important;background:#f8faff!important;color:#233c69!important;font-size:15px!important;transition:background .18s,border-color .18s,transform .18s}
+.v17-continue .v17-step:hover{background:#eef4ff!important;border-color:#adc2f5!important;transform:translateY(-1px)}
+.v17-continue .v17-step .v21-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:31px;height:31px;border-radius:10px;background:#e6edff;color:#345bd5}
+.v17-continue .v17-step small{font-size:12px!important;color:#7485a1!important;line-height:1.4!important;margin-top:0!important;display:block!important}
+.v17-continue .v17-steps{flex:1 1 auto!important;align-content:center!important}
+.v17-continue .v17-actions{margin-top:8px!important}
+.v17-panel{overflow:auto!important}
+.v17-continue .v17-step:nth-child(2) .v21-icon{background:#e7f5f3;color:#15857a}
+.v17-continue .v17-step:nth-child(3) .v21-icon{background:#fff1e5;color:#b86a26}
+.v17-continue .v17-step:nth-child(4) .v21-icon{background:#f0ebff;color:#7852bd}
+@media(max-width:800px){.primary-nav{grid-template-columns:repeat(2,minmax(0,1fr))!important}.primary-nav button{min-height:53px!important}.v13-dialog,.v14-learning .v13-dialog,.v18-report-dialog{width:calc(100vw - 24px)!important;height:min(88dvh,800px)!important}.v13-modal,.v18-report-overlay{padding:12px!important}.v13-content{padding:16px!important}}
+@media(max-width:520px){.primary-nav{gap:5px!important;padding:5px!important}.primary-nav button{font-size:12px!important;gap:5px!important;padding:8px!important}.v21-icon{width:18px;height:18px}.v21-icon svg{width:17px;height:17px}.v17-continue .v17-step{min-height:78px!important;padding:12px 12px 12px 50px!important}.v17-continue .v17-step .v21-icon{left:10px}.v13-head{padding:14px!important}}
+</style><style id="v22-popup-unification">
+/* V22: unified report dialog visual language with other popups */
+.v18-report-overlay{background:rgba(16,29,52,.48)!important;backdrop-filter:blur(3px)!important;padding:clamp(16px,4vh,48px)!important}
+.v18-report-dialog{width:min(1080px,calc(100vw - 44px))!important;height:min(760px,calc(100dvh - 72px))!important;max-height:calc(100dvh - 32px)!important;background:#fff!important;border-radius:22px!important;box-shadow:0 30px 90px rgba(18,33,63,.23)!important}
+.v18-report-header{background:#fff!important;border-bottom:1px solid #e8edf5!important;padding:19px 25px!important;min-height:70px!important}
+.v18-report-header h2{font-size:21px!important;letter-spacing:-.45px!important;line-height:1.25!important}
+.v18-report-header p{color:#75839a!important}
+.v18-report-body{background:#fafbfe!important;padding:22px 25px!important;overflow-y:auto!important}
+.v18-report-footer{background:#fff!important;border-top:1px solid #e8edf5!important;padding:14px 25px!important}
+.v18-report-close{width:38px!important;height:38px!important;border-radius:11px!important;background:#f5f7fb!important;border:1px solid #e5eaf3!important;color:#41516c!important}
+@media(max-width:800px){.v18-report-overlay{padding:12px!important}.v18-report-dialog{width:calc(100vw - 24px)!important;height:min(88dvh,800px)!important}.v18-report-body{padding:16px!important}.v18-report-header,.v18-report-footer{padding:14px 16px!important}}
+</style><script id="v23-profile-bootstrap">
+(function(){
+ const prefix='sm-v23-', keys=['speaking-matrix-progress-v1','speaking-matrix-plan-v2','speaking-matrix-selected-day-v12'];
+ let profiles=[];try{profiles=JSON.parse(localStorage.getItem(prefix+'profiles')||'[]')}catch(e){}
+ if(!Array.isArray(profiles))profiles=[];
+ let active=localStorage.getItem(prefix+'active');
+ // Keep pre-upgrade progress intact until the first learner is created.
+ if(profiles.length && profiles.some(p=>p.id===active)){
+   keys.forEach(k=>{const v=localStorage.getItem(prefix+'data:'+active+':'+k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)});
+ }
+ window.SMProfiles={prefix,keys,getProfiles:()=>profiles,getActive:()=>active,
+ create(name){name=name.trim().replace(/\s+/g,' ');if(!name||name.length>45)throw Error('Tên phải có từ 1 đến 45 ký tự.');
+ const id='p'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);const first=profiles.length===0;
+ // Existing V22 data belongs to the first learner, rather than being discarded.
+ if(!first)keys.forEach(k=>localStorage.removeItem(k));
+ profiles.push({id,name,createdAt:new Date().toISOString()});active=id;
+ localStorage.setItem(prefix+'profiles',JSON.stringify(profiles));localStorage.setItem(prefix+'active',id);
+ keys.forEach(k=>{const v=localStorage.getItem(k);if(v!==null)localStorage.setItem(prefix+'data:'+id+':'+k,v)});
+ return id;},
+ switch(id){if(!profiles.some(p=>p.id===id))return;
+ if(active){keys.forEach(k=>{const v=localStorage.getItem(k);if(v===null)localStorage.removeItem(prefix+'data:'+active+':'+k);else localStorage.setItem(prefix+'data:'+active+':'+k,v)})}
+ active=id;localStorage.setItem(prefix+'active',id);keys.forEach(k=>{const v=localStorage.getItem(prefix+'data:'+id+':'+k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)});location.reload();},
+ delete(id){const index=profiles.findIndex(p=>p.id===id);if(index<0)return false;
+ const wasActive=active===id;
+ if(wasActive)this.save();
+ profiles.splice(index,1);
+ keys.forEach(k=>localStorage.removeItem(prefix+'data:'+id+':'+k));
+ localStorage.setItem(prefix+'profiles',JSON.stringify(profiles));
+ if(wasActive){active=null;localStorage.removeItem(prefix+'active');keys.forEach(k=>localStorage.removeItem(k));}
+ return wasActive?'active':'other';},
+ save(){if(!active)return;keys.forEach(k=>{const v=localStorage.getItem(k);if(v===null)localStorage.removeItem(prefix+'data:'+active+':'+k);else localStorage.setItem(prefix+'data:'+active+':'+k,v)})}
+ };
+ window.addEventListener('pagehide',()=>window.SMProfiles.save());
+})();
+</script></head><body><header><div class="brand">◉ Speaking Matrix <span>90 Lessons · V26</span></div><div class="pill">✦ Learn • Think • Speak</div></header><main><section class="hero"><div><h1>Biến kiến thức thành phản xạ nói ✨</h1><p>Luyện Input → xây dựng câu → Output theo 4 cấp độ. 90 bài học với 90 chủ đề khác nhau, tăng dần độ khó theo cấp độ.</p></div><div class="symbol">🎙️</div></section><section class="stats"><div class="stat"><span class="muted">Buổi luyện hoàn thành</span><strong id="sessions">0</strong><span class="muted">sessions</span></div><div class="stat"><span class="muted">Tổng thời gian nói</span><strong id="minutes">0</strong><span class="muted">phút</span></div><div class="stat"><span class="muted">Chuỗi ngày học</span><strong id="streak">0</strong><span class="muted">ngày liên tục</span></div><div class="stat"><span class="muted">Chủ đề đã luyện</span><strong id="unique">0</strong><span class="muted">topics</span></div></section><div id="globalLessonContext" class="global-lesson-context" aria-live="polite"></div><nav class="tabs"><button class="tab active" data-view="practice">🎤 Luyện nói</button><button class="tab" data-view="input">📚 Input Training</button><button class="tab" data-view="builder">🧩 Sentence Builder</button><button class="tab" data-view="history">📊 Tiến độ</button><button class="tab" data-view="roadmap">🗓️ Lộ trình 90 ngày</button><button class="tab" data-view="coach">🗣️ Speaking Coach</button></nav><section id="practice" class="view active"><div class="panel"><h2>Chọn cấp độ</h2><p class="muted">Mỗi cấp độ có cấu trúc, câu hỏi, từ nối và mục tiêu khác nhau — không chỉ khác đồng hồ.</p><div class="levels" id="levels"></div></div><div class="grid" style="margin-top:18px"><div class="panel"><span class="pill" id="topicCategory">Daily life</span><div class="topic" id="topicTitle"></div><div class="en" id="topicEnglish"></div><div class="prompt" id="questions"></div><div class="actions"><button class="btn secondary" id="newTopic">↻ Đổi chủ đề</button><button class="btn secondary" id="speakSample">🔊 Nghe mẫu</button></div><details style="margin-top:16px"><summary style="cursor:pointer;font-weight:700">Xem bài nói mẫu theo cấp độ (chỉ xem sau khi tự nói)</summary><div class="prompt" id="sample"></div></details></div><div class="panel"><h2>Output Training</h2><p class="note">Chuẩn bị ý nhanh, sau đó bấm bắt đầu. Hãy nói thành tiếng, không chỉ nghĩ trong đầu.</p><div class="timer" id="timer">00:30</div><div class="progress"><div class="bar" id="timerBar"></div></div><div class="actions"><button class="btn" id="start">▶ Bắt đầu</button><button class="btn secondary" id="pause" disabled>Ⅱ Tạm dừng</button><button class="btn secondary" id="reset">↺ Đặt lại</button></div><div class="actions"><button class="btn secondary" id="record">● Ghi âm</button><button class="btn danger hidden" id="stopRecord">■ Dừng ghi âm</button></div><audio id="playback" controls class="hidden" style="width:100%;margin-top:12px"></audio><p class="hint" id="recordStatus">Ghi âm cần quyền micro và trình duyệt hỗ trợ; bản ghi chỉ tồn tại trong phiên hiện tại.</p><label for="reflection" style="display:block;font-weight:700;margin:18px 0 8px">Tự đánh giá sau khi nói</label><textarea id="reflection" placeholder="Ví dụ: Tôi nói được 25 giây, bị ngập ngừng khi giải thích lý do..."></textarea><div class="actions"><button class="btn" id="complete">✓ Lưu buổi luyện</button></div><div id="saveMessage" aria-live="polite"></div></div></div></section><section id="input" class="view"><div class="grid"><div class="panel"><h2>Input Training</h2><p class="note">Học cụm ý và mẫu câu của chủ đề hiện tại. Đọc thành tiếng 3 lần rồi thử thay từ.</p><div class="topic" id="inputTopic"></div><div id="phrases"></div><div class="actions"><button class="btn secondary" id="readPhrases">🔊 Nghe tiếng Anh</button><button class="btn" id="goPractice">Chuyển sang Output →</button></div></div><div class="panel"><h2>Quy trình 4 bước</h2><div class="step"><b>01 — Notice</b><p>Đọc và hiểu các cụm từ quan trọng.</p></div><div class="step"><b>02 — Repeat</b><p>Nghe, nhắc lại, chú ý nhịp và trọng âm.</p></div><div class="step"><b>03 — Transform</b><p>Thay chủ ngữ, thời gian hoặc lý do để tạo câu mới.</p></div><div class="step"><b>04 — Speak</b><p>Đóng tài liệu và tự nói theo đồng hồ.</p></div><p class="note">Ứng dụng dùng nội dung tự biên soạn, lấy cảm hứng từ nguyên tắc Input/Output; không phải sản phẩm chính thức của tác giả hoặc nhà xuất bản.</p></div></div></section><section id="builder" class="view"><div class="grid"><div class="panel"><h2>Sentence Builder</h2><p class="note">Phát triển một ý thành đoạn nói có bối cảnh, lý do và ví dụ.</p><label>Câu cơ bản</label><input id="baseSentence" value="I study English."/><div class="chips"><span class="chip">When?</span><span class="chip">Why?</span><span class="chip">How?</span><span class="chip">Example?</span></div><label>Thêm thời gian / bối cảnh</label><input id="contextSentence" placeholder="I usually study after work."/><label>Thêm lý do</label><input id="reasonSentence" placeholder="I want to communicate better with my team."/><label>Thêm ví dụ / chi tiết</label><input id="exampleSentence" placeholder="For example, I practice speaking for 30 minutes."/><div class="actions"><button class="btn" id="build">Tạo đoạn nói</button><button class="btn secondary" id="listenBuild">🔊 Nghe đoạn nói</button></div></div><div class="panel"><h2>Đoạn nói của bạn</h2><div class="prompt" id="builtText">I study English.</div><p class="note">Mẹo: Đọc chậm → đọc tự nhiên → che nội dung và nói lại bằng lời của bạn.</p><button class="btn secondary" id="copyBuild">Sao chép đoạn nói</button></div></div></section><section id="history" class="view"><div class="panel"><h2>Nhật ký luyện tập</h2><p class="note">Tiến độ được lưu trên thiết bị này bằng localStorage. Xóa dữ liệu trình duyệt có thể làm mất nhật ký.</p><div style="overflow:auto"><table class="history"><thead><tr><th>Ngày</th><th>Cấp độ</th><th>Chủ đề</th><th>Thời gian</th><th>Ghi chú</th></tr></thead><tbody id="historyRows"></tbody></table></div><div class="actions"><button class="btn secondary" id="export">↓ Xuất tiến độ JSON</button><button class="btn danger" id="clear">Xóa toàn bộ tiến độ</button></div></div></section><div class="footer">Speaking Matrix Trainer · Independent learning companion · Offline-friendly single HTML file</div><section id="roadmap" class="view"><div class="panel"><h2>Lộ trình 90 ngày · 30 phút/ngày</h2><p class="note">Kế hoạch gợi ý, không phải lịch học chính thức từ sách. Mỗi ngày gồm 10 phút Input, 5 phút mở rộng câu, 10 phút Output và 5 phút nghe lại.</p><div class="mini-grid"><div class="mini-card"><span class="muted">Ngày hoàn thành</span><strong id="daysDone">0 / 90</strong></div><div class="mini-card"><span class="muted">Giai đoạn hiện tại</span><strong id="phaseName">30 giây</strong></div><div class="mini-card"><span class="muted">Tiến độ</span><strong id="planPercent">0%</strong></div></div><div class="progress" style="margin-top:15px"><div class="bar" id="planBar"></div></div><div class="settings-row" style="margin-top:20px"><label>Giai đoạn<select id="phaseFilter"><option value="all">Tất cả 90 ngày</option><option value="0">Ngày 1–21 · 30 giây</option><option value="1">Ngày 22–42 · 1 phút</option><option value="2">Ngày 43–66 · 2 phút</option><option value="3">Ngày 67–90 · 3 phút</option></select></label><label>Chủ đề<select id="planCategory"><option value="all">Tất cả chủ đề (không đổi lịch)</option><option value="Work & IT">Chỉ hiển thị chủ đề IT</option><option value="Daily life">Chỉ hiển thị đời sống</option></select></label></div><div class="v16-toolbar"><input id="v16Search" type="search" aria-label="Tìm chủ đề trong lộ trình" placeholder="🔎 Tìm chủ đề hoặc số ngày (ví dụ: 24, meeting...)"/><div class="v16-statuses" role="group" aria-label="Lọc trạng thái"><button type="button" data-v16-status="all" class="active">Tất cả</button><button type="button" data-v16-status="new">Chưa học</button><button type="button" data-v16-status="started">Đang học</button><button type="button" data-v16-status="done">Hoàn thành</button></div></div><div id="v16Results" class="v16-results" aria-live="polite"></div><div id="planItems"></div><div class="actions"><button class="btn secondary" id="planNext">Đi đến ngày chưa hoàn thành</button></div></div></section>
+<section id="coach" class="view"><div class="grid"><div class="panel"><h2>Speaking Coach · Nhận diện lời nói</h2><p class="note">Sử dụng Web Speech API của trình duyệt để chuyển giọng nói thành văn bản. Tính năng có thể không hỗ trợ trên một số trình duyệt và có thể dùng dịch vụ nhận diện của nhà cung cấp trình duyệt.</p><div class="actions"><button class="btn" id="recognize">🎙️ Bắt đầu nhận diện</button><button class="btn secondary" id="recognizeStop" disabled>■ Dừng</button></div><p class="hint" id="recognizeStatus" aria-live="polite">Chưa bắt đầu.</p><label for="transcript">Bản chép lời (có thể sửa hoặc dán văn bản)</label><textarea id="transcript" class="transcript" placeholder="Nhập bài nói theo chủ đề đang chọn..." rows="7"></textarea><div class="actions"><button class="btn" id="evaluate">Đánh giá bài nói</button><button class="btn secondary" id="clearTranscript">Xóa bản chép lời</button></div><p class="warning">Đây là đánh giá quy tắc cơ bản, KHÔNG phải AI chấm phát âm hay xác nhận ngữ pháp đúng. Không thể suy ra phát âm hoặc độ trôi chảy từ văn bản.</p></div><div class="panel"><h2>Phản hồi luyện nói</h2><div class="score" id="coachScore">—</div><div id="coachFeedback" class="prompt">Nhận diện hoặc nhập nội dung bài nói rồi chọn “Đánh giá bài nói”.</div><h3 id="coachOutlineTitle">Khung nói gợi ý theo chủ đề</h3><div id="coachOutline" aria-live="polite"></div><div class="actions"><button class="btn secondary" id="useITTopic">Chuyển sang luyện nói chủ đề này</button></div></div></div></section></main><script>
+const topics=[{cat:'Daily life',vi:'Thói quen buổi sáng',en:'My morning routine',q:['What time do you wake up?','What do you do before work?','How do you feel in the morning?'],phrases:[['I usually wake up at…','Tôi thường thức dậy lúc…'],['After that, I…','Sau đó, tôi…'],['It helps me…','Điều đó giúp tôi…']],sample:'I usually wake up at six. After that, I brush my teeth and get ready for work. I like having a simple morning routine because it helps me start the day calmly.'},{cat:'Work & IT',vi:'Giới thiệu công việc',en:'My job as a developer',q:['What do you do?','What technologies do you use?','What do you enjoy about your job?'],phrases:[['I work as a…','Tôi làm công việc…'],['I am responsible for…','Tôi chịu trách nhiệm về…'],['What I enjoy most is…','Điều tôi thích nhất là…']],sample:'I work as a software developer. I mainly build web applications and work with my team to solve technical problems. What I enjoy most is creating useful products for users.'},{cat:'Work & IT',vi:'Báo cáo tiến độ',en:'Giving a work update',q:['What did you finish?','What are you working on now?','Are there any blockers?'],phrases:[['I have completed…','Tôi đã hoàn thành…'],['I am currently working on…','Hiện tôi đang làm…'],['The main blocker is…','Trở ngại chính là…']],sample:'I have completed the login page. I am currently working on the API integration. The main blocker is that I need more information about the error response format.'},{cat:'Work & IT',vi:'Giải thích một lỗi',en:'Explaining a technical issue',q:['What happened?','What caused the issue?','What will you do next?'],phrases:[['We noticed an issue with…','Chúng tôi phát hiện vấn đề với…'],['It seems to be caused by…','Có vẻ nguyên nhân là…'],['The next step is to…','Bước tiếp theo là…']],sample:'We noticed an issue with the search feature. It seems to be caused by an incorrect API parameter. The next step is to update the request and test it again.'},{cat:'Daily life',vi:'Sở thích cuối tuần',en:'My weekend activities',q:['What do you usually do?','Who do you spend time with?','Why do you enjoy it?'],phrases:[['On weekends, I usually…','Cuối tuần tôi thường…'],['I spend time with…','Tôi dành thời gian với…'],['It makes me feel…','Nó khiến tôi cảm thấy…']],sample:'On weekends, I usually spend time with my family. Sometimes we go out for breakfast or visit a park. I enjoy these moments because they help me relax after a busy week.'},{cat:'Work & IT',vi:'Đề xuất giải pháp',en:'Suggesting a solution',q:['What problem are you trying to solve?','What do you suggest?','Why is it a good option?'],phrases:[['I suggest that we…','Tôi đề xuất chúng ta…'],['One possible approach is…','Một cách tiếp cận có thể là…'],['The benefit is…','Lợi ích là…']],sample:'I suggest that we split this feature into smaller tasks. One possible approach is to finish the API contract first. The benefit is that frontend and backend developers can work in parallel.'},{cat:'Daily life',vi:'Mục tiêu học tiếng Anh',en:'My English learning goals',q:['Why are you learning English?','How do you practice?','What is your next goal?'],phrases:[['My main goal is to…','Mục tiêu chính của tôi là…'],['I practice by…','Tôi luyện tập bằng cách…'],['I hope to…','Tôi hy vọng…']],sample:'My main goal is to speak English confidently at work. I practice by listening to short conversations and speaking every day. I hope to explain my ideas clearly in meetings.'},{cat:'Work & IT',vi:'Nêu ý kiến trong cuộc họp',en:'Sharing an opinion in a meeting',q:['What is your opinion?','What is your reason?','Can you give an example?'],phrases:[['In my opinion…','Theo ý kiến của tôi…'],['The reason is that…','Lý do là…'],['For example…','Ví dụ…']],sample:'In my opinion, we should keep the first version simple. The reason is that we need to validate the main workflow quickly. For example, we can add advanced filters in the next release.'}];
+const durations=[30,60,120,180], names=['30 giây','1 phút','2 phút','3 phút'];let level=0,topicIndex=0,remaining=30,interval=null,active=false,mediaRecorder=null,chunks=[],recordUrl=null;const $=id=>document.getElementById(id);const storageKey='speaking-matrix-progress-v1';let logs=[];try{logs=JSON.parse(localStorage.getItem(storageKey)||'[]');if(!Array.isArray(logs))logs=[]}catch{logs=[]}
+function format(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}function timerUI(){$('timer').textContent=format(remaining);$('timerBar').style.width=((durations[level]-remaining)/durations[level]*100)+'%';$('timer').classList.toggle('running',active)}function stopTimer(){clearInterval(interval);interval=null;active=false;$('start').disabled=false;$('pause').disabled=true;timerUI()}function resetTimer(){stopTimer();remaining=durations[level];$('start').textContent='▶ Bắt đầu';timerUI()}function renderLevels(){$('levels').innerHTML=names.map((n,i)=>`<button class="level ${i===level?'active':''}" data-level="${i}"><strong>${n}</strong><small>${['Nói ý chính','Thêm chi tiết','Kể chuyện mạch lạc','Giải thích & lập luận'][i]}</small></button>`).join('');document.querySelectorAll('[data-level]').forEach(b=>b.onclick=()=>{level=Number(b.dataset.level);renderLevels();renderTopic();resetTimer()})}const levelFrames=[
+ {title:'30 giây · Nói rõ 1 ý',goal:'3 câu ngắn: trả lời trực tiếp → chi tiết → lý do',parts:['Main idea','One detail','Reason'],targets:'3–5 câu · khoảng 35–55 từ',check:'Tôi có nói được ý chính mà không nhìn bài mẫu?'},
+ {title:'1 phút · Mở rộng câu',goal:'Giới thiệu → 2 chi tiết → lý do → ví dụ cụ thể',parts:['Opening','Two details','Reason','Example'],targets:'6–9 câu · khoảng 75–105 từ',check:'Tôi có đưa ra ví dụ thật, thay vì lặp lại ý chính?'},
+ {title:'2 phút · Kết nối thành câu chuyện',goal:'Mở đầu → bối cảnh → hai điểm chính → ví dụ → kết luận',parts:['Opening','Background','Point 1','Point 2','Example','Wrap-up'],targets:'12–17 câu · khoảng 150–210 từ',check:'Các ý có liên kết và ví dụ có giải thích rõ?'},
+ {title:'3 phút · Giải thích và lập luận',goal:'Mở đầu → bối cảnh → giải thích → dẫn chứng → khó khăn/phương án → kết luận',parts:['Opening','Context','Explanation','Evidence','Challenge / Alternative','Conclusion'],targets:'18–25 câu · khoảng 225–300 từ',check:'Tôi có phân tích tác động, phương án và kết luận rõ ràng?'}
+];
+const topicDepth=[
+ [ ['When do you get up?','What is the first thing you do?','Why?'],['Describe your morning in order.','What do you do before leaving home?','Give one example of a good morning.'],['How has your morning routine changed?','What makes mornings difficult?','Describe a specific morning and how you handled it.'],['Which habit matters most and why?','Compare a busy morning with an ideal one.','What would you change, and what benefits would follow?']],
+ [ ['What is your role?','What do you build?','Why do you like it?'],['What are your main responsibilities?','Which technology do you use?','Describe one typical task.'],['Describe a recent feature from requirement to delivery.','How do you collaborate with backend and QA?','What was a challenge?'],['Explain a major architectural decision.','Compare two possible approaches and trade-offs.','What did you learn and what would you improve?']],
+ [ ['What did you finish?','What will you do today?','Any blockers?'],['What is the status of the task?','What is the next milestone?','Give one blocker and what you need.'],['Explain the feature and its current status.','What have you verified?','Describe the blocker, impact and next actions.'],['Summarize progress against the sprint goal.','Explain the risk and impact on delivery.','Compare mitigation options and ask for a decision.']],
+ [ ['What is broken?','Where does it happen?','What is your next step?'],['How can the issue be reproduced?','What do you think causes it?','What is your first fix?'],['Explain expected versus actual behavior.','What evidence do logs or tests show?','Describe your investigation and validation plan.'],['Explain root cause, user impact and scope.','Compare a quick fix with a long-term fix.','Propose testing, monitoring and prevention.']],
+ [ ['What do you do on weekends?','With whom?','Why do you enjoy it?'],['Describe your Saturday and Sunday.','Give a memorable activity.','Why does it help you relax?'],['Tell the story of a recent weekend.','What was different from your plan?','How did you feel and why?'],['Compare relaxing and productive weekends.','Explain constraints and priorities.','Suggest an ideal plan and justify it.']],
+ [ ['What is the problem?','What do you suggest?','Why?'],['Explain your proposed approach.','Give one benefit and an example.','What should happen first?'],['Describe the current process and its weakness.','Explain two implementation steps.','What are the expected outcomes?'],['Compare at least two solutions and trade-offs.','Explain cost, risk and impact on users.','Recommend a phased rollout and success metrics.']],
+ [ ['Why do you study English?','How do you practice?','What is your goal?'],['Describe your weekly study routine.','What is hard for you?','Give an example of improvement.'],['Explain your starting point and progress.','Which techniques work best?','Describe a difficult speaking situation.'],['Compare two learning strategies.','Analyze your biggest obstacle and a measurable plan.','Explain how you will assess progress.']],
+ [ ['What is your opinion?','Why?','Give one example.'],['State your recommendation clearly.','Support it with a reason and an example.','Invite feedback.'],['Explain the context and decision criteria.','Present two supporting arguments.','Address a teammate’s concern.'],['Compare alternatives with risks and benefits.','Respond respectfully to an objection.','Summarize the recommendation and next steps.']]
+];
+const levelConnectors=[
+ ['I think…','I usually…','because…'],
+ ['First,…','Another detail is…','For example,…','That is why…'],
+ ['To give some context,…','One important point is…','In addition,…','For instance,…','Overall,…'],
+ ['The main issue is…','This matters because…','One option is…','However,…','Compared with…','Therefore, I recommend…']
+];
+function getLesson(){let t=topics[topicIndex],f=levelFrames[level],q=topicDepth[topicIndex][level];return {t,f,q,connectors:levelConnectors[level]}}
+function getSample(){let {t}=getLesson();let extensions=[
+ '',
+ 'Let me add a little more detail. '+(t.cat==='Work & IT'?'A clear example from a recent task helps explain the situation.':'One specific example from my daily life makes this easier to understand.')+' This is important to me because it affects what I do next.',
+ 'To give some context, this is something I have been thinking about recently. First, I want to explain the situation clearly. Another important point is how it affects other people or my schedule. For instance, I can describe a real case and what happened. I learned that planning and communication make a difference. Overall, I want to keep improving this area.',
+ 'To put this into context, I should explain both the current situation and the result I want to achieve. The first factor is time, and the second is quality. One possible approach is to make a small change and check the result. However, there may be limitations or unexpected problems. Another option is to spend more time preparing, which could reduce risk but delay progress. I would compare the options based on their impact and effort. My recommendation is to start with a practical step, collect feedback, and adjust the plan. In conclusion, I believe consistent improvement is more useful than trying to make everything perfect immediately.'
+ ];return t.sample+(extensions[level]?' '+extensions[level]:'')}
+function renderTopic(){let {t,f,q,connectors}=getLesson();$('topicCategory').textContent=t.cat;$('topicTitle').textContent=t.vi;$('topicEnglish').textContent=t.en;
+ $('questions').innerHTML='<strong>'+f.title+'</strong><p>'+f.goal+'</p><div class="lesson-parts">'+f.parts.map((x,i)=>'<span>'+(i+1)+'. '+x+'</span>').join('')+'</div><b>Câu hỏi riêng cho cấp độ này:</b><ol>'+q.map(x=>'<li>'+x+'</li>').join('')+'</ol><p><b>Mục tiêu:</b> '+f.targets+'</p><p><b>Tự kiểm tra:</b> '+f.check+'</p>';
+ $('sample').textContent=getSample();$('inputTopic').textContent=t.en+' · '+names[level];$('phrases').innerHTML='<p class="note"><b>Cấu trúc cấp độ:</b> '+f.goal+'</p>'+t.phrases.map(([en,vi])=>'<div class="step"><b>'+en+'</b><div class="muted">'+vi+'</div></div>').join('')+'<h3>Từ nối / khung câu '+names[level]+'</h3>'+connectors.map(x=>'<div class="step"><b>'+x+'</b></div>').join('')+'<p class="note">Bài mẫu là ví dụ tham khảo, không phải độ dài chuẩn bắt buộc. Hãy tự nói trước khi xem.</p>';
+}
+function speak(text){if(!('speechSynthesis'in window)){alert('Trình duyệt không hỗ trợ đọc tiếng Anh.');return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=.85;speechSynthesis.speak(u)}function switchView(id){document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.view===id));document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id===id))}document.querySelectorAll('.tab').forEach(x=>x.onclick=()=>switchView(x.dataset.view));$('newTopic').onclick=()=>{activeDay=null;topicIndex=(topicIndex+1)%topics.length;renderTopic();resetTimer()};$('speakSample').onclick=()=>speak(getSample());$('readPhrases').onclick=()=>speak(topics[topicIndex].phrases.map(p=>p[0]).concat(levelConnectors[level]).join('. '));$('goPractice').onclick=()=>switchView('practice');$('start').onclick=()=>{if(active)return;if(remaining===0)remaining=durations[level];active=true;$('start').disabled=true;$('pause').disabled=false;$('start').textContent='▶ Tiếp tục';timerUI();interval=setInterval(()=>{remaining=Math.max(0,remaining-1);timerUI();if(remaining===0){stopTimer();$('start').textContent='▶ Luyện lại';if(navigator.vibrate)navigator.vibrate(150)}},1000)};$('pause').onclick=stopTimer;$('reset').onclick=resetTimer;
+$('record').onclick=async()=>{if(!navigator.mediaDevices?.getUserMedia||typeof MediaRecorder==='undefined'){alert('Trình duyệt hoặc ngữ cảnh hiện tại không hỗ trợ ghi âm. Hãy thử localhost hoặc HTTPS.');return}try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});chunks=[];mediaRecorder=new MediaRecorder(stream);mediaRecorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};mediaRecorder.onstop=()=>{if(recordUrl)URL.revokeObjectURL(recordUrl);recordUrl=URL.createObjectURL(new Blob(chunks,{type:mediaRecorder.mimeType||'audio/webm'}));$('playback').src=recordUrl;$('playback').classList.remove('hidden');stream.getTracks().forEach(t=>t.stop());$('recordStatus').textContent='Bạn có thể nghe lại bản ghi ngay bên dưới.'};mediaRecorder.start();$('record').classList.add('hidden');$('stopRecord').classList.remove('hidden');$('recordStatus').textContent='Đang ghi âm…'}catch(e){alert('Không thể truy cập micro: '+e.message)}};$('stopRecord').onclick=()=>{if(mediaRecorder?.state==='recording')mediaRecorder.stop();$('record').classList.remove('hidden');$('stopRecord').classList.add('hidden')};
+function dayKey(d){return new Date(d).toLocaleDateString('en-CA')}function updateStats(){let days=[...new Set(logs.map(x=>dayKey(x.date)))].sort().reverse(),streak=0,d=new Date();d.setHours(12,0,0,0);if(days[0]!==dayKey(d)){d.setDate(d.getDate()-1)}while(days.includes(dayKey(d))){streak++;d.setDate(d.getDate()-1)}$('sessions').textContent=logs.length;$('minutes').textContent=(logs.reduce((s,x)=>s+x.seconds,0)/60).toFixed(1);$('streak').textContent=streak;$('unique').textContent=new Set(logs.map(x=>x.topic)).size;$('historyRows').innerHTML=logs.length?logs.slice().reverse().map(x=>`<tr><td>${new Date(x.date).toLocaleDateString('vi-VN')}</td><td>${names[x.level]}</td><td>${topics[x.topic]?.vi||'Chủ đề khác'}</td><td>${x.seconds}s</td><td class="reflection-cell"></td></tr>`).join(''):'<tr><td colspan="5">Chưa có buổi luyện nào. Hãy bắt đầu từ cấp độ 30 giây!</td></tr>';document.querySelectorAll('.reflection-cell').forEach((cell,i)=>cell.textContent=logs[logs.length-1-i].reflection||'—')}
+$('complete').onclick=()=>{const seconds=durations[level]-remaining;if(seconds<=0){$('saveMessage').innerHTML='<p class="hint">Hãy bắt đầu đồng hồ và luyện nói trước khi lưu.</p>';return}logs.push({date:new Date().toISOString(),level,topic:topicIndex,seconds,reflection:$('reflection').value.trim()});localStorage.setItem(storageKey,JSON.stringify(logs));updateStats();$('saveMessage').innerHTML='<div class="feedback">✓ Đã lưu buổi luyện! Bạn có thể xem trong mục Tiến độ.</div>';$('reflection').value='';resetTimer()};$('build').onclick=()=>{$('builtText').textContent=[$('baseSentence').value,$('contextSentence').value,$('reasonSentence').value,$('exampleSentence').value].map(x=>x.trim()).filter(Boolean).join(' ')};$('listenBuild').onclick=()=>speak($('builtText').textContent);$('copyBuild').onclick=async()=>{try{await navigator.clipboard.writeText($('builtText').textContent);$('copyBuild').textContent='✓ Đã sao chép'}catch{alert('Không thể sao chép tự động. Hãy chọn và sao chép văn bản.')}};$('export').onclick=()=>{const blob=new Blob([JSON.stringify(logs,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='speaking-matrix-progress.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};$('clear').onclick=()=>{if(confirm('Xóa toàn bộ nhật ký luyện tập trên trình duyệt này?')){logs=[];localStorage.removeItem(storageKey);updateStats()}};renderLevels();renderTopic();timerUI();updateStats();
+
+// v2: daily plan, optional browser speech-to-text and transparent rule-based coaching.
+const planKey='speaking-matrix-plan-v2';let planDone={};try{planDone=JSON.parse(localStorage.getItem(planKey)||'{}')||{}}catch{planDone={}};
+const planPhases=[{from:1,to:21,label:'30 giây',level:0},{from:22,to:42,label:'1 phút',level:1},{from:43,to:66,label:'2 phút',level:2},{from:67,to:90,label:'3 phút',level:3}];
+function phaseFor(day){return planPhases.find(p=>day>=p.from&&day<=p.to)}
+const dailyLessons=[{"en": "My name and hometown", "vi": "My name and hometown", "cat": "Daily life"}, {"en": "My family", "vi": "My family", "cat": "Daily life"}, {"en": "My weekday morning", "vi": "My weekday morning", "cat": "Daily life"}, {"en": "My breakfast", "vi": "My breakfast", "cat": "Daily life"}, {"en": "My commute to work", "vi": "My commute to work", "cat": "Work & IT"}, {"en": "My workplace", "vi": "My workplace", "cat": "Work & IT"}, {"en": "My job title", "vi": "My job title", "cat": "Daily life"}, {"en": "My favorite technology", "vi": "My favorite technology", "cat": "Daily life"}, {"en": "My daily tasks", "vi": "My daily tasks", "cat": "Work & IT"}, {"en": "My lunch break", "vi": "My lunch break", "cat": "Daily life"}, {"en": "My evening routine", "vi": "My evening routine", "cat": "Daily life"}, {"en": "My favorite food", "vi": "My favorite food", "cat": "Daily life"}, {"en": "My weekend hobby", "vi": "My weekend hobby", "cat": "Daily life"}, {"en": "My favorite place", "vi": "My favorite place", "cat": "Daily life"}, {"en": "My English goal", "vi": "My English goal", "cat": "Daily life"}, {"en": "My study schedule", "vi": "My study schedule", "cat": "Daily life"}, {"en": "My best friend", "vi": "My best friend", "cat": "Daily life"}, {"en": "My favorite app", "vi": "My favorite app", "cat": "Daily life"}, {"en": "A recent purchase", "vi": "A recent purchase", "cat": "Daily life"}, {"en": "My bedtime routine", "vi": "My bedtime routine", "cat": "Daily life"}, {"en": "My plans for tomorrow", "vi": "My plans for tomorrow", "cat": "Daily life"}, {"en": "A typical workday", "vi": "A typical workday", "cat": "Work & IT"}, {"en": "A task I completed", "vi": "A task I completed", "cat": "Work & IT"}, {"en": "My current project", "vi": "My current project", "cat": "Work & IT"}, {"en": "How I organize my tasks", "vi": "How I organize my tasks", "cat": "Work & IT"}, {"en": "A tool I use every day", "vi": "A tool I use every day", "cat": "Daily life"}, {"en": "My favorite React feature", "vi": "My favorite React feature", "cat": "Work & IT"}, {"en": "How I learn a new skill", "vi": "How I learn a new skill", "cat": "Daily life"}, {"en": "A productive morning", "vi": "A productive morning", "cat": "Work & IT"}, {"en": "A difficult conversation", "vi": "A difficult conversation", "cat": "Daily life"}, {"en": "A family weekend", "vi": "A family weekend", "cat": "Daily life"}, {"en": "A restaurant experience", "vi": "A restaurant experience", "cat": "Daily life"}, {"en": "An English speaking challenge", "vi": "An English speaking challenge", "cat": "Daily life"}, {"en": "How I prepare for meetings", "vi": "How I prepare for meetings", "cat": "Work & IT"}, {"en": "A helpful colleague", "vi": "A helpful colleague", "cat": "Daily life"}, {"en": "A bug I fixed", "vi": "A bug I fixed", "cat": "Work & IT"}, {"en": "A feature I built", "vi": "A feature I built", "cat": "Work & IT"}, {"en": "How I handle feedback", "vi": "How I handle feedback", "cat": "Daily life"}, {"en": "My exercise routine", "vi": "My exercise routine", "cat": "Daily life"}, {"en": "A recent achievement", "vi": "A recent achievement", "cat": "Daily life"}, {"en": "My plan for next week", "vi": "My plan for next week", "cat": "Daily life"}, {"en": "A skill I want to improve", "vi": "A skill I want to improve", "cat": "Daily life"}, {"en": "How I joined my first project", "vi": "How I joined my first project", "cat": "Work & IT"}, {"en": "A feature from idea to release", "vi": "A feature from idea to release", "cat": "Work & IT"}, {"en": "A production bug investigation", "vi": "A production bug investigation", "cat": "Work & IT"}, {"en": "Working with a backend developer", "vi": "Working with a backend developer", "cat": "Work & IT"}, {"en": "Working with QA", "vi": "Working with QA", "cat": "Work & IT"}, {"en": "A sprint that went well", "vi": "A sprint that went well", "cat": "Work & IT"}, {"en": "A sprint that went badly", "vi": "A sprint that went badly", "cat": "Work & IT"}, {"en": "How I review pull requests", "vi": "How I review pull requests", "cat": "Daily life"}, {"en": "A performance improvement", "vi": "A performance improvement", "cat": "Daily life"}, {"en": "A technical decision I made", "vi": "A technical decision I made", "cat": "Work & IT"}, {"en": "A time I missed a deadline", "vi": "A time I missed a deadline", "cat": "Daily life"}, {"en": "Handling changing requirements", "vi": "Handling changing requirements", "cat": "Daily life"}, {"en": "Learning from a mistake", "vi": "Learning from a mistake", "cat": "Daily life"}, {"en": "Explaining a complex UI", "vi": "Explaining a complex UI", "cat": "Daily life"}, {"en": "A challenging client request", "vi": "A challenging client request", "cat": "Work & IT"}, {"en": "How I mentor a teammate", "vi": "How I mentor a teammate", "cat": "Work & IT"}, {"en": "My approach to debugging", "vi": "My approach to debugging", "cat": "Work & IT"}, {"en": "A project retrospective", "vi": "A project retrospective", "cat": "Work & IT"}, {"en": "How I manage priorities", "vi": "How I manage priorities", "cat": "Daily life"}, {"en": "A work-life balance challenge", "vi": "A work-life balance challenge", "cat": "Work & IT"}, {"en": "My English learning journey", "vi": "My English learning journey", "cat": "Daily life"}, {"en": "Planning a family trip", "vi": "Planning a family trip", "cat": "Daily life"}, {"en": "A personal goal I achieved", "vi": "A personal goal I achieved", "cat": "Daily life"}, {"en": "A time I solved a conflict", "vi": "A time I solved a conflict", "cat": "Daily life"}, {"en": "Should we adopt a new framework?", "vi": "Should we adopt a new framework?", "cat": "Work & IT"}, {"en": "Choosing CSR SSR or SSG", "vi": "Choosing CSR SSR or SSG", "cat": "Daily life"}, {"en": "React state management trade-offs", "vi": "React state management trade-offs", "cat": "Work & IT"}, {"en": "Monolith versus microservices", "vi": "Monolith versus microservices", "cat": "Daily life"}, {"en": "When to use micro-frontends", "vi": "When to use micro-frontends", "cat": "Daily life"}, {"en": "How to improve app performance", "vi": "How to improve app performance", "cat": "Daily life"}, {"en": "Designing a scalable API", "vi": "Designing a scalable API", "cat": "Work & IT"}, {"en": "Handling technical debt", "vi": "Handling technical debt", "cat": "Work & IT"}, {"en": "Estimating a complex feature", "vi": "Estimating a complex feature", "cat": "Work & IT"}, {"en": "Prioritizing bugs versus features", "vi": "Prioritizing bugs versus features", "cat": "Work & IT"}, {"en": "Responding to a production outage", "vi": "Responding to a production outage", "cat": "Work & IT"}, {"en": "Improving team code quality", "vi": "Improving team code quality", "cat": "Work & IT"}, {"en": "Choosing between two architectures", "vi": "Choosing between two architectures", "cat": "Work & IT"}, {"en": "Designing an authentication flow", "vi": "Designing an authentication flow", "cat": "Daily life"}, {"en": "Handling security and privacy", "vi": "Handling security and privacy", "cat": "Daily life"}, {"en": "Presenting a technical proposal", "vi": "Presenting a technical proposal", "cat": "Work & IT"}, {"en": "Disagreeing respectfully in meetings", "vi": "Disagreeing respectfully in meetings", "cat": "Work & IT"}, {"en": "Negotiating a project deadline", "vi": "Negotiating a project deadline", "cat": "Work & IT"}, {"en": "Explaining a release risk", "vi": "Explaining a release risk", "cat": "Work & IT"}, {"en": "Planning a product roadmap", "vi": "Planning a product roadmap", "cat": "Work & IT"}, {"en": "Evaluating AI coding tools", "vi": "Evaluating AI coding tools", "cat": "Daily life"}, {"en": "Mentoring junior developers", "vi": "Mentoring junior developers", "cat": "Work & IT"}, {"en": "Presenting a system design", "vi": "Presenting a system design", "cat": "Daily life"}, {"en": "My career path to Solution Architect", "vi": "My career path to Solution Architect", "cat": "Work & IT"}];
+let activeDay=null;
+function topicFor(day){return {...dailyLessons[day-1],i:day-1}}
+function getDayLesson(){return activeDay===null?null:dailyLessons[activeDay-1]}
+const dailyScaffolds=[
+ ['Introduce the topic','Give one specific detail','Say why it matters'],
+ ['Introduce the situation','Describe two concrete details','Explain the reason','Give a real example','Close with a result'],
+ ['Introduce the situation','Explain the background','Describe the first key point','Describe the second key point','Give a specific example','Explain what you learned'],
+ ['State your position or recommendation','Describe the context and constraints','Explain your first argument','Explain a second argument with evidence','Discuss a risk or alternative','Recommend next steps and conclude']
+];
+const originalGetLesson=getLesson,originalGetSample=getSample;
+getLesson=function(){const d=getDayLesson();if(!d)return originalGetLesson();const f=levelFrames[level],steps=dailyScaffolds[level];return {t:{...d,phrases:[['I would like to talk about '+d.en+'.','Tôi muốn nói về '+d.en+'.'],['One important point is…','Một điểm quan trọng là…'],['For example, …','Ví dụ như…'],['What I learned is…','Điều tôi rút ra là…']]},f,q:steps.map((step,i)=>step+': '+(i===0?'What is the main point about '+d.en+'?':i===steps.length-1?'What is your takeaway or next step?':'What specific detail can you add about '+d.en+'?')),connectors:levelConnectors[level]};};
+getSample=function(){const d=getDayLesson();if(!d)return originalGetSample();const title=d.en.toLowerCase();const sentences=[`Today I would like to talk about ${title}.`,`This topic is relevant to my life or work.`,`One important detail is that I need to consider my own experience.`,`I can describe a real situation and explain what happened.`,`For example, I can mention a specific challenge, action, and result.`,`Another important point is how this affects my priorities.`,`I should explain why I chose this approach.`,`There may be another way to handle the same situation.`,`I can compare the benefits and limitations of both options.`,`The lesson I learned is to think clearly and communicate my reasons.`,`My next step is to apply this lesson in a real situation.`,`Overall, this experience helps me improve.`];return sentences.slice(0,[3,5,9,12][level]).join(' ')+' (Đây là khung diễn đạt tham khảo; hãy thay các câu chung bằng trải nghiệm thật của bạn.)';};
+function renderPlan(){let count=Array.from({length:90},(_,i)=>i+1).filter(d=>planDone[d]).length;$('daysDone').textContent=count+' / 90';$('planPercent').textContent=Math.round(count/90*100)+'%';$('planBar').style.width=count/90*100+'%';let next=Array.from({length:90},(_,i)=>i+1).find(d=>!planDone[d])||90;$('phaseName').textContent=phaseFor(next).label;let f=$('phaseFilter').value,category=$('planCategory').value;let days=Array.from({length:90},(_,i)=>i+1).filter(d=>(f==='all'||phaseFor(d)===planPhases[Number(f)])&&(category==='all'||topicFor(d).cat===category));$('planItems').innerHTML=days.map(d=>{let t=topicFor(d),p=phaseFor(d);return `<div class="plan-item ${planDone[d]?'done':''}"><div><b>Ngày ${d} · ${t.en}</b><div class="muted">${p.label} · Bài riêng #${d} · ${t.cat}</div><span class="badge-small">Input → Builder → Output → Review</span></div><div class="actions"><button class="btn secondary" data-study="${d}">Học</button><label class="checkline"><input type="checkbox" data-done="${d}" ${planDone[d]?'checked':''}> Xong</label></div></div>`}).join('')||'<p>Không có bài học thuộc bộ lọc này.</p>';document.querySelectorAll('[data-done]').forEach(c=>c.onchange=()=>{planDone[c.dataset.done]=c.checked;localStorage.setItem(planKey,JSON.stringify(planDone));renderPlan()});document.querySelectorAll('[data-study]').forEach(b=>b.onclick=()=>{let d=Number(b.dataset.study);activeDay=d;level=phaseFor(d).level;renderLevels();renderTopic();resetTimer();switchView('input');window.scrollTo({top:0,behavior:'smooth'})})}
+$('phaseFilter').onchange=renderPlan;$('planCategory').onchange=renderPlan;$('planNext').onclick=()=>{let d=Array.from({length:90},(_,i)=>i+1).find(d=>!planDone[d])||90;$('phaseFilter').value=String(planPhases.indexOf(phaseFor(d)));renderPlan();document.querySelector(`[data-study="${d}"]`)?.scrollIntoView({behavior:'smooth',block:'center'})};renderPlan();
+let recognition=null;let recognitionActive=false;const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+if(!SR){$('recognize').disabled=true;$('recognizeStatus').textContent='Trình duyệt này chưa hỗ trợ nhận diện lời nói. Bạn vẫn có thể nhập bản chép lời để đánh giá.'}
+else{recognition=new SR();recognition.lang='en-US';recognition.continuous=true;recognition.interimResults=true;let base='';recognition.onresult=e=>{let final='',interim='';for(let i=0;i<e.results.length;i++){let result=e.results[i];if(result.isFinal)final+=result[0].transcript+' ';else interim+=result[0].transcript} $('transcript').value=(base+' '+final+' '+interim).trim()};recognition.onerror=e=>{$('recognizeStatus').textContent='Nhận diện gặp lỗi: '+e.error};recognition.onend=()=>{recognitionActive=false;$('recognize').disabled=false;$('recognizeStop').disabled=true;$('recognizeStatus').textContent+=' · Đã dừng'};$('recognize').onclick=()=>{try{base=$('transcript').value.trim();recognition.start();recognitionActive=true;$('recognize').disabled=true;$('recognizeStop').disabled=false;$('recognizeStatus').textContent='Đang nghe tiếng Anh…'}catch(e){$('recognizeStatus').textContent=e.message}};$('recognizeStop').onclick=()=>{if(recognitionActive)recognition.stop()}}
+$('clearTranscript').onclick=()=>{$('transcript').value='';$('coachScore').textContent='—';$('coachFeedback').textContent='Chưa có nội dung để đánh giá.'};
+$('evaluate').onclick=()=>{let raw=$('transcript').value.trim(),words=raw.match(/[a-z]+(?:'[a-z]+)?/gi)||[];if(words.length<3){$('coachScore').textContent='—';$('coachFeedback').textContent='Hãy nhập ít nhất một câu tiếng Anh để nhận phản hồi.';return}let sentences=raw.split(/[.!?]+/).filter(x=>x.trim()).length;let connectors=(raw.match(/\b(because|however|for example|first|next|finally|also|so|therefore|but)\b/gi)||[]).length;let categories=[/\b(i|we|our|my)\b/i,/\b(because|so|to|in order to)\b/i,/\b(for example|such as|specifically)\b/i,/\b(next|will|plan|suggest|should)\b/i];let coverage=categories.filter(r=>r.test(raw)).length;let score=Math.min(100,Math.round(Math.min(words.length/90,1)*35+Math.min(sentences/5,1)*20+Math.min(connectors/3,1)*20+coverage/4*25));$('coachScore').textContent=score+'/100';let feedback=[`Số từ: ${words.length} · Số câu ước tính: ${sentences} · Từ nối: ${connectors}.`,`Điểm ${score}/100 chỉ đo độ dài và một số dấu hiệu cấu trúc trong bản chép lời, không đo chất lượng phát âm, tốc độ nói hay độ chính xác ngữ pháp.`,words.length<40?'Hãy mở rộng thêm: bối cảnh, nguyên nhân và ví dụ.':'Bạn đã có độ dài tương đối tốt; hãy thử nói lại mà không nhìn văn bản.',connectors<2?'Thử dùng because, for example, however hoặc next để kết nối ý.':'Bạn đã sử dụng một số từ nối.',!categories[3].test(raw)?'Nếu đang báo cáo công việc, hãy thêm bước tiếp theo: My next step is…':'Bạn có đề cập hướng hành động hoặc bước tiếp theo.'];$('coachFeedback').replaceChildren(...feedback.map(x=>{let p=document.createElement('p');p.textContent=x;return p}))};
+$('useITTopic').onclick=()=>{let idx=topics.findIndex(t=>t.cat==='Work & IT');if(idx>=0){topicIndex=idx;renderTopic();resetTimer()}switchView('practice')};
+// Preserve original export; add import of progress for device migration.
+const importInput=document.createElement('input');importInput.type='file';importInput.accept='.json,application/json';importInput.className='hidden';$('history').appendChild(importInput);const importBtn=document.createElement('button');importBtn.className='btn secondary';importBtn.textContent='↥ Nhập nhật ký JSON';$('export').parentElement.appendChild(importBtn);importBtn.onclick=()=>importInput.click();importInput.onchange=async()=>{let f=importInput.files?.[0];if(!f)return;try{let parsed=JSON.parse(await f.text());if(!Array.isArray(parsed)||parsed.length>10000||!parsed.every(x=>typeof x.date==='string'&&Number.isInteger(x.level)&&x.level>=0&&x.level<4&&Number.isInteger(x.topic)&&Number.isFinite(x.seconds)&&x.seconds>=0&&x.seconds<=180&&typeof (x.reflection||'')==='string'))throw Error('Định dạng nhật ký không hợp lệ');if(confirm('Nhập '+parsed.length+' buổi học? Dữ liệu hiện tại sẽ được thay thế.')){logs=parsed;localStorage.setItem(storageKey,JSON.stringify(logs));updateStats();alert('Đã nhập nhật ký.')}}catch(e){alert('Không thể nhập: '+e.message)}finally{importInput.value=''}};
+
+// V5: shared lesson context across Input, Sentence Builder and Speaking Coach.
+const v5Style=document.createElement('style');v5Style.textContent='.lesson-context{background:#eef3ff;border:1px solid #d7e3ff;border-radius:12px;padding:12px;margin:10px 0 16px;line-height:1.65}.lesson-context strong{color:#254cb5}.coach-check{padding:9px 0;border-bottom:1px solid #e8edf5}.coach-check:last-child{border:0}.coach-check small{display:block;color:#65748a;margin-top:3px}.v5-focus{background:#f6f8ff;padding:12px;border-radius:10px;margin:10px 0}';document.head.append(v5Style);
+const v5Builder=document.createElement('div');v5Builder.id='builderContext';v5Builder.className='lesson-context';$('builder').querySelector('.panel').insertBefore(v5Builder,$('builder').querySelector('label'));
+const v5Coach=document.createElement('div');v5Coach.id='coachContext';v5Coach.className='lesson-context';$('coach').querySelector('.panel').insertBefore(v5Coach,$('coach').querySelector('.panel').children[1]);
+const v5BuilderPrompts=document.createElement('div');v5BuilderPrompts.id='builderPrompts';v5BuilderPrompts.className='v5-focus';$('baseSentence').parentElement.insertBefore(v5BuilderPrompts,$('baseSentence').previousElementSibling);
+const v5CoachChecks=document.createElement('div');v5CoachChecks.id='coachChecks';$('coachFeedback').parentElement.appendChild(v5CoachChecks);
+const v5Drafts={};let v5CurrentKey=null;
+const v5Stopwords=new Set('a an the my i we our to of and or for in on at with from how why when what should do does did is are was were be by versus vs between into about that this your you a time'.split(' '));
+const v5Keywords=t=>[...new Set(t.en.toLowerCase().replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(w=>w.length>2&&!v5Stopwords.has(w)))].slice(0,6);
+function v5Context(){const t=getDayLesson()||topics[topicIndex];return {t,day:activeDay,level,key:(activeDay?'day-'+activeDay:'topic-'+topicIndex)+'-'+level,words:v5Keywords(t)};}
+function v5Content(c){const t=c.t.en,work=c.t.cat==='Work & IT',k=c.words[0]||'topic';
+ const focus=work?['What task or technical problem is involved?','Which tools, people or constraints matter?','What action did you take and what was the result?','What would you recommend as the next step?']:['When or where does this happen?','Who is involved and what do you usually do?','Why is it important to you?','Can you give a real example?'];
+ const questions=[`What is the main idea of ${t}?`,...focus];
+ const levels=[['State your main idea','Add one concrete detail','Explain why'],['Introduce the situation','Describe two details','Explain your reason','Give an example','Summarize'],['Set the context','Describe what happened','Explain two key points','Give a real example','Describe the outcome','Reflect'],['State your position','Explain constraints','Give two arguments','Support with evidence','Discuss a trade-off','Recommend next steps']];
+ const seeds=[`I want to talk about ${t.toLowerCase()}.`,work?`In my work, ${k} is important because ...`:`In my daily life, ${k} matters because ...`,`For example, when I think about ${t.toLowerCase()}, ...`,`One thing I learned about ${k} is ...`];
+ return {questions,focus,steps:levels[c.level],seeds,targets:[18,55,110,165][c.level]};}
+function v5SaveDraft(){if(!v5CurrentKey)return;v5Drafts[v5CurrentKey]=['baseSentence','contextSentence','reasonSentence','exampleSentence'].map(id=>$(id).value)}
+function v5Render(){const c=v5Context(),d=v5Content(c);v5SaveDraft();v5CurrentKey=c.key;
+ $('builderContext').replaceChildren();$('coachContext').replaceChildren();
+ const describe=(node)=>{const a=document.createElement('strong');a.textContent=(c.day?'Ngày '+c.day+' · ':'')+c.t.en+' · '+names[c.level];node.append(a);const p=document.createElement('div');p.textContent='Bài tập theo chủ đề hiện tại. Đổi bài trong Lộ trình hoặc Luyện nói để cập nhật cả hai công cụ.';node.append(p)};
+ describe($('builderContext'));describe($('coachContext'));
+ $('builderPrompts').replaceChildren();const h=document.createElement('b');h.textContent='Gợi ý riêng cho bài này';$('builderPrompts').append(h);const ol=document.createElement('ol');d.questions.slice(0,Math.min(c.level+2,5)).forEach(q=>{let li=document.createElement('li');li.textContent=q;ol.append(li)});$('builderPrompts').append(ol);
+ const ids=['baseSentence','contextSentence','reasonSentence','exampleSentence'],draft=v5Drafts[c.key];ids.forEach((id,i)=>{$(id).value=draft?draft[i]||'':(i===0?d.seeds[0]:'');$(id).placeholder=d.seeds[i]});
+ $('builtText').textContent=(draft||[d.seeds[0]]).filter(Boolean).join(' ');
+ $('coachChecks').replaceChildren();let heading=document.createElement('b');heading.textContent='Tiêu chí cần có trong bài nói';$('coachChecks').append(heading);d.steps.forEach((st,i)=>{let el=document.createElement('div');el.className='coach-check';el.textContent=(i+1)+'. '+st;$('coachChecks').append(el)});
+ $('coachScore').textContent='—';$('coachFeedback').textContent='Nhập hoặc ghi lại bài nói rồi bấm Đánh giá. Tiêu chí sẽ thay đổi theo chủ đề và cấp độ.';
+}
+const v5OriginalRenderTopic=renderTopic;renderTopic=function(){v5OriginalRenderTopic();v5Render()};
+// A click on a roadmap lesson originally changed the practice view only; sync the other tabs too.
+const v5OriginalRenderPlan=renderPlan;renderPlan=function(){v5OriginalRenderPlan();document.querySelectorAll('[data-study]').forEach(b=>{const old=b.onclick;b.onclick=()=>{old();v5Render()}})};
+document.querySelectorAll('.tab').forEach(b=>{const old=b.onclick;b.onclick=()=>{old();if(['builder','coach'].includes(b.dataset.view))v5Render()}});
+$('useITTopic').onclick=()=>{activeDay=null;let idx=topics.findIndex(t=>t.cat==='Work & IT');if(idx>=0)topicIndex=idx;renderTopic();resetTimer();switchView('practice')};
+$('evaluate').onclick=()=>{const c=v5Context(),d=v5Content(c),raw=$('transcript').value.trim(),words=raw.match(/[a-z]+(?:'[a-z]+)?/gi)||[];
+ if(words.length<3){$('coachScore').textContent='—';$('coachFeedback').textContent='Hãy nhập ít nhất một câu tiếng Anh.';return}
+ const lower=raw.toLowerCase(),topicHits=c.words.filter(w=>new RegExp('\\b'+w+'\\b','i').test(raw));
+ const hasReason=/\b(because|since|so|in order to|the reason)\b/i.test(raw),hasExample=/\b(for example|for instance|such as|specifically|one example)\b/i.test(raw),hasContext=/\b(yesterday|today|last|when|during|at work|in my|on the|this week|recently)\b/i.test(raw),hasAction=/\b(will|next|plan|recommend|should|decided|fixed|built|improved|learned|result)\b/i.test(raw),hasTradeoff=/\b(however|although|but|trade.off|risk|alternative|on the other hand|instead)\b/i.test(raw);
+ const checks=[['Nêu đúng chủ đề',topicHits.length>0,`Từ khóa gợi ý: ${c.words.join(', ')||c.t.en}`],['Đưa bối cảnh cụ thể',hasContext,'Nói khi nào, ở đâu hoặc tình huống nào'],['Giải thích lý do',hasReason,'Thử dùng because / since / so'],['Đưa ví dụ',hasExample,'Thử dùng for example / for instance'],['Nêu kết quả hoặc bước tiếp theo',hasAction,'Nói kết quả hoặc điều bạn sẽ làm tiếp'],['Đề cập rủi ro / phương án khác',hasTradeoff,'Dùng however / although / alternative']];
+ const required=[2,3,5,6][c.level],selected=checks.slice(0,required);const coverage=selected.filter(x=>x[1]).length;
+ const target=d.targets,volume=Math.min(words.length/target,1),score=Math.round(100*(0.35*volume+0.65*coverage/required));
+ $('coachScore').textContent=score+'/100';$('coachFeedback').replaceChildren();
+ const notes=[`Chủ đề: ${c.t.en} · ${names[c.level]}.`, `Độ dài: ${words.length} từ; mục tiêu tham khảo khoảng ${target} từ.`, `Dấu hiệu nội dung: ${coverage}/${required} tiêu chí. Từ khóa chủ đề tìm thấy: ${topicHits.join(', ')||'chưa có'}.`, 'Đây chỉ là đánh giá quy tắc trên văn bản, không xác định được tính đúng sự thật, phát âm, độ lưu loát hay lỗi ngữ pháp.'];
+ notes.forEach(x=>{let p=document.createElement('p');p.textContent=x;$('coachFeedback').append(p)});
+ $('coachChecks').replaceChildren();selected.forEach(([name,ok,hint])=>{let p=document.createElement('div');p.className='coach-check';p.textContent=(ok?'✓ ':'○ ')+name;let small=document.createElement('small');small.textContent=ok?'Có dấu hiệu trong bản chép lời':hint;p.append(small);$('coachChecks').append(p)});
+};
+// Avoid resetting typed work when only moving between tabs; preserve drafts by lesson.
+['baseSentence','contextSentence','reasonSentence','exampleSentence'].forEach(id=>$(id).addEventListener('input',v5SaveDraft));
+v5Render();
+
+// V6: topic-aware speaking outlines, independent of the old fixed IT meeting outline.
+const v6Style=document.createElement('style');v6Style.textContent=`.v6-outline{display:grid;gap:10px}.v6-step{border:1px solid #e2e9f5;border-radius:12px;padding:12px;background:#f8faff}.v6-step b{display:block;color:#2848a2;margin-bottom:5px}.v6-step p{margin:5px 0}.v6-step small{display:block;color:#5c6680;line-height:1.5}.v6-level{font-size:13px;color:#4b5c82;margin:0 0 12px}.v6-question{font-weight:600}`;document.head.appendChild(v6Style);
+const v6Categories=[
+ {re:/bug|error|issue|debug|incident|problem|failure|crash|root cause|production/i,kind:'incident'},
+ {re:/architecture|design|technology|framework|database|performance|security|trade.off|scalab|microservice|api|system/i,kind:'decision'},
+ {re:/meeting|standup|sprint|progress|update|deadline|task|project|release|delivery|team|client|stakeholder/i,kind:'status'},
+ {re:/suggest|solution|improv|proposal|recommend|idea|opinion|decision|priority/i,kind:'proposal'},
+ {re:/learn|english|skill|goal|career|practice|study|habit/i,kind:'growth'},
+ {re:/weekend|trip|travel|holiday|memory|experience|event|celebrat/i,kind:'story'},
+ {re:/family|friend|child|parent|hometown|home|food|morning|routine|day|hobby|free time/i,kind:'personal'}
+];
+const v6Blueprints={
+ incident:{label:'Phân tích sự cố',parts:[['Vấn đề','What exactly went wrong?','We noticed an issue with …'],['Tình huống','When and where did it happen?','It happened when …'],['Nguyên nhân','What evidence explains the cause?','The evidence suggests that …'],['Tác động','Who or what was affected?','As a result, …'],['Giải pháp','How did you fix or mitigate it?','To address this, we …'],['Phòng ngừa','How will you prevent it next time?','To prevent this in the future, …']]},
+ decision:{label:'Giải thích lựa chọn kỹ thuật',parts:[['Quyết định','What are you deciding or designing?','We need to decide how to …'],['Bối cảnh','Which requirements or constraints matter?','The main constraint is …'],['Phương án A','What is one feasible approach?','One option is to …'],['Phương án B','What is the alternative?','Another option would be to …'],['Đánh đổi','What do you gain and lose?','The trade-off is …'],['Đề xuất','What do you recommend and why?','I recommend … because …']]},
+ status:{label:'Báo cáo tiến độ',parts:[['Trạng thái','What is the current status?','The current status is …'],['Đã làm','What have you completed?','So far, I have completed …'],['Đang làm','What are you working on?','I am currently working on …'],['Khó khăn','Is anything slowing progress?','One challenge is …'],['Ảnh hưởng','What does this mean for the timeline?','This may affect …'],['Bước tiếp','What will happen next?','My next step is to …']]},
+ proposal:{label:'Đề xuất và thuyết phục',parts:[['Ý kiến','What do you propose?','I suggest that we …'],['Vấn đề','Why is a change necessary?','The current challenge is …'],['Lý do','Why is this useful?','The main benefit is …'],['Ví dụ','What example supports it?','For example, …'],['Phản biện','What is a possible concern?','One concern could be …'],['Kết luận','What action should follow?','Therefore, I recommend …']]},
+ growth:{label:'Mục tiêu và phát triển',parts:[['Mục tiêu','What do you want to improve?','My goal is to …'],['Hiện tại','Where are you now?','Right now, I can …'],['Thói quen','What do you do to improve?','I usually practice by …'],['Minh chứng','What recent example shows progress?','For instance, last week …'],['Trở ngại','What makes progress difficult?','The biggest challenge is …'],['Kế hoạch','What will you do next and how will you measure it?','Next, I plan to …']]},
+ story:{label:'Kể một trải nghiệm',parts:[['Chủ đề','What experience will you describe?','I want to tell you about …'],['Thời gian','When and where did it happen?','It happened …'],['Diễn biến','What happened first?','First, we …'],['Điểm nổi bật','What was memorable or surprising?','The most memorable moment was …'],['Cảm xúc','How did you feel and why?','I felt … because …'],['Bài học','What did you learn?','Looking back, I learned …']]},
+ personal:{label:'Chia sẻ đời sống',parts:[['Giới thiệu','What is this part of your life?','I would like to talk about …'],['Chi tiết','What do you usually do or experience?','Usually, I …'],['Thời điểm','When or with whom does it happen?','I often do this …'],['Ví dụ','Can you share one real example?','For example, …'],['Ý nghĩa','Why does it matter to you?','It matters to me because …'],['Thay đổi','What would you change or do next?','In the future, I would like to …']]}
+};
+function v6OutlineData(){const c=v5Context(),title=c.t.en,kind=(v6Categories.find(x=>x.re.test(title))||{kind:c.t.cat==='Work & IT'?'status':'personal'}).kind;const blueprint=v6Blueprints[kind];const order=[[0,1,4],[0,1,2,4],[0,1,2,3,4,5],[0,1,2,3,4,5]][c.level];const stage=[['Nêu vấn đề','Một chi tiết','Kết quả / bước tiếp'],['Mở bài','Bối cảnh','Giải thích','Ví dụ / kết quả'],['Mở bài','Bối cảnh','Điểm chính 1','Điểm chính 2','Ví dụ','Kết luận'],['Luận điểm','Bối cảnh','Phân tích','Dẫn chứng / so sánh','Rủi ro / tác động','Đề xuất & kết luận']][c.level];return {c,kind,blueprint,steps:order.map((i,n)=>({part:blueprint.parts[i],stage:stage[n]||'Mở rộng'}))}}
+function v6RenderOutline(){const {c,blueprint,steps}=v6OutlineData();$('coachOutlineTitle').textContent='Khung nói gợi ý · '+c.t.en;$('coachOutline').replaceChildren();const info=document.createElement('p');info.className='v6-level';info.textContent=(c.day?'Ngày '+c.day+' · ':'')+names[c.level]+' · '+blueprint.label+' · '+steps.length+' bước';$('coachOutline').append(info);const wrap=document.createElement('div');wrap.className='v6-outline';steps.forEach(({part,stage},i)=>{const card=document.createElement('div');card.className='v6-step';const h=document.createElement('b');h.textContent=(i+1)+'. '+stage+' — '+part[0];const question=document.createElement('p');question.className='v6-question';question.textContent=part[1];const example=document.createElement('small');example.textContent='Khởi đầu: '+part[2];card.append(h,question,example);wrap.append(card)});$('coachOutline').append(wrap)}
+const v6OldRenderTopic=renderTopic;renderTopic=function(){v6OldRenderTopic();v6RenderOutline()};
+const v6OldRenderPlan=renderPlan;renderPlan=function(){v6OldRenderPlan();document.querySelectorAll('[data-study]').forEach(b=>{const old=b.onclick;b.onclick=()=>{old();v6RenderOutline()}})};
+document.querySelectorAll('.tab').forEach(b=>{if(b.dataset.view==='coach')b.addEventListener('click',v6RenderOutline)});
+v6RenderOutline();
+
+// V7: level is a global learning context shared by all learning tabs.
+const v7Style=document.createElement('style');
+v7Style.textContent=`
+.global-levels{margin:18px 0 12px}.global-levels .levels{margin-top:12px}
+.global-lesson-context{background:#edf4ff;border:1px solid #cddfff;border-radius:12px;padding:11px 15px;margin:0 0 14px;color:#21447d;line-height:1.5}
+.global-lesson-context b{color:#15356e}
+@media(max-width:600px){.global-levels .levels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}
+`;
+document.head.appendChild(v7Style);
+const v7LevelsPanel=$('levels').closest('.panel');
+v7LevelsPanel.classList.add('global-levels');
+const v7GlobalContext=$('globalLessonContext');
+v7GlobalContext.parentElement.insertBefore(v7LevelsPanel,v7GlobalContext);
+v7LevelsPanel.querySelector('h2').textContent='Cấp độ luyện tập chung';
+v7LevelsPanel.querySelector('p').textContent='Chọn một lần để áp dụng cho Input Training, Sentence Builder, Luyện nói và Speaking Coach. Lộ trình 90 ngày tự chọn cấp độ của bài.';
+const v7CoachButton=$('useITTopic');
+v7CoachButton.textContent='🎤 Luyện nói chủ đề đang chọn';
+v7CoachButton.onclick=()=>{switchView('practice');window.scrollTo({top:0,behavior:'smooth'})};
+function v7UpdateContext(){
+ const c=v5Context();
+ v7GlobalContext.replaceChildren();
+ const strong=document.createElement('b');strong.textContent='Đang học: ';
+ const info=document.createElement('span');info.textContent=(c.day?'Ngày '+c.day+' · ':'')+c.t.en+' · '+names[c.level]+' · '+c.t.cat;
+ v7GlobalContext.append(strong,info);
+ v7CoachButton.textContent='🎤 Luyện nói: '+c.t.en;
+ $('transcript').placeholder='Bài nói về '+c.t.en+' ('+names[c.level]+')...';
+}
+const v7OldRenderTopic=renderTopic;
+renderTopic=function(){v7OldRenderTopic();v7UpdateContext()};
+// Level buttons are recreated on each render. Delegate to the stable parent so
+// all tabs receive updated topic-specific content when the global level changes.
+$('levels').addEventListener('click',()=>{queueMicrotask(()=>{v7UpdateContext();v5Render();v6RenderOutline()})});
+// A roadmap day changes both the active topic and global level.
+const v7OldRenderPlan=renderPlan;
+renderPlan=function(){v7OldRenderPlan();document.querySelectorAll('[data-study]').forEach(b=>{
+ const old=b.onclick;b.onclick=()=>{old();v7UpdateContext()};
+})};
+// Guard against earlier hard-coded IT-topic button handlers.
+v7CoachButton.onclick=()=>{switchView('practice');window.scrollTo({top:0,behavior:'smooth'})};
+v7UpdateContext();
+
+// V8: separate primary navigation (Learning / 90-day roadmap / Progress)
+// from the learning workflow tabs. Preserve all existing lesson and log handlers.
+const v8Style=document.createElement('style');
+v8Style.textContent=`
+.primary-nav{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 18px;padding:7px;background:#e8edf7;border-radius:16px}
+.primary-nav button{flex:1;min-width:150px;border-radius:11px;padding:14px 16px;background:transparent;color:#465875;font-weight:800}
+.primary-nav button.active{background:#fff;color:#254ac5;box-shadow:0 2px 9px #1c36741a}
+.learning-tabs{margin:15px 0 18px}
+.section-heading{font-size:13px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#6b7892;margin:0 0 8px}
+body[data-section="roadmap"] .global-levels,body[data-section="roadmap"] .global-lesson-context,
+body[data-section="history"] .global-levels,body[data-section="history"] .global-lesson-context,
+body[data-section="roadmap"] .learning-tabs,body[data-section="history"] .learning-tabs{display:none!important}
+@media(max-width:600px){.primary-nav{gap:5px}.primary-nav button{min-width:0;font-size:12px;padding:12px 6px}}
+`;
+document.head.appendChild(v8Style);
+const v8Tabs=document.querySelector('nav.tabs');
+v8Tabs.classList.add('learning-tabs');
+for(const id of ['history','roadmap'])v8Tabs.querySelector('[data-view="'+id+'"]').remove();
+const v8Primary=document.createElement('nav');
+v8Primary.className='primary-nav';
+v8Primary.setAttribute('aria-label','Điều hướng chính');
+v8Primary.innerHTML='<button type="button" data-section="learn" class="active">🎓 Học tập</button><button type="button" data-section="roadmap">🗓️ Lộ trình 90 ngày</button><button type="button" data-section="history">📊 Tiến độ</button>';
+v7LevelsPanel.before(v8Primary);
+let v8LastLearningView='practice';
+const v8OriginalSwitchView=switchView;
+switchView=function(id){
+ const section=id==='roadmap'?'roadmap':id==='history'?'history':'learn';
+ if(section==='learn')v8LastLearningView=id;
+ document.body.dataset.section=section;
+ v8Primary.querySelectorAll('button').forEach(b=>{
+  const on=b.dataset.section===section;
+  b.classList.toggle('active',on);
+  b.setAttribute('aria-current',on?'page':'false');
+ });
+ v8OriginalSwitchView(id);
+};
+v8Primary.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+ const id=b.dataset.section==='learn'?v8LastLearningView:b.dataset.section;
+ switchView(id);
+}));
+switchView('practice');
+
+// V9: learning order, reliable session journal, and a persistent red-check calendar.
+const v9Style=document.createElement('style');
+v9Style.textContent=`
+.learning-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.calendar-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:18px 0}
+.calendar-toolbar button{border-radius:9px;padding:8px 13px;background:#edf1fa;color:#3553a5;font-weight:800}
+.calendar-weekdays,.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.calendar-weekdays span{text-align:center;color:#78849b;font-size:12px;font-weight:700;padding:6px 0}
+.calendar-day{min-height:67px;border:1px solid #e2e8f4;background:#fff;border-radius:11px;padding:6px 3px;display:flex;flex-direction:column;align-items:center;gap:5px;color:#34435e}
+.calendar-day.empty{border:0;background:transparent}
+.calendar-day.today{border:2px solid #4c70dd}
+.calendar-day.studied{background:#fff1f1;border-color:#f1b4b4}
+.calendar-day .check{color:#d82334;font-size:22px;font-weight:900;line-height:1}
+.calendar-day .count{font-size:10px;color:#a43b44}
+.calendar-day.selected{outline:2px solid #d82334;outline-offset:1px}
+.calendar-detail{margin-top:16px;padding:14px;border-radius:12px;background:#f4f7ff;line-height:1.7}
+.calendar-summary{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0 16px}
+.calendar-summary span{background:#f5f7fc;padding:9px 12px;border-radius:10px;font-size:13px}
+@media(max-width:550px){.calendar-grid,.calendar-weekdays{gap:3px}.calendar-day{min-height:58px;padding:5px 1px}.calendar-day .count{font-size:9px}}
+`;
+document.head.appendChild(v9Style);
+const v9Tabs=v8Tabs;
+const v9Order=['input','builder','practice','coach'];
+v9Order.forEach(id=>v9Tabs.appendChild(v9Tabs.querySelector(`[data-view="${id}"]`)));
+const v9Labels={input:'① 📚 Input Training',builder:'② 🧩 Sentence Builder',practice:'③ 🎤 Luyện nói',coach:'④ 🗣️ Speaking Coach'};
+v9Order.forEach(id=>v9Tabs.querySelector(`[data-view="${id}"]`).textContent=v9Labels[id]);
+v8LastLearningView='input';
+switchView('input');
+const v9History=$('history').querySelector('.panel');
+const v9Calendar=document.createElement('section');
+v9Calendar.innerHTML=`<h2>📅 Lịch luyện tập</h2><p class="note">Mỗi ngày có ít nhất một buổi được lưu sẽ xuất hiện dấu tích đỏ. Nhiều buổi trong cùng ngày vẫn chỉ tính là một ngày học.</p><div class="calendar-summary"><span id="v9TotalDays">0 ngày đã học</span><span id="v9MonthDays">0 ngày trong tháng</span><span id="v9TotalSessions">0 buổi luyện</span></div><div class="calendar-toolbar"><button type="button" id="v9PrevMonth" aria-label="Tháng trước">‹</button><strong id="v9MonthTitle"></strong><button type="button" id="v9NextMonth" aria-label="Tháng sau">›</button></div><div class="calendar-weekdays"><span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span><span>CN</span></div><div id="v9CalendarGrid" class="calendar-grid"></div><div id="v9CalendarDetail" class="calendar-detail" aria-live="polite">Chọn ngày để xem các buổi đã học.</div>`;
+v9History.before(v9Calendar);
+const v9Now=new Date();let v9Year=v9Now.getFullYear(),v9Month=v9Now.getMonth(),v9Selected=null;
+function v9LocalDate(value){const d=new Date(value);if(!Number.isFinite(d.getTime()))return '';return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function v9Label(x){if(Number.isInteger(x.day)&&x.day>=1&&x.day<=90)return `Ngày ${x.day} · ${dailyLessons[x.day-1].en}`;return x.topicTitle||topics[x.topic]?.en||'Chủ đề khác'}
+function v9Esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function v9RenderCalendar(){
+ const byDay=new Map();logs.forEach(x=>{let key=v9LocalDate(x.date);if(key){if(!byDay.has(key))byDay.set(key,[]);byDay.get(key).push(x)}});
+ const prefix=`${v9Year}-${String(v9Month+1).padStart(2,'0')}-`;
+ $('v9TotalDays').textContent=`${byDay.size} ngày đã học`;
+ $('v9MonthDays').textContent=`${[...byDay.keys()].filter(x=>x.startsWith(prefix)).length} ngày trong tháng`;
+ $('v9TotalSessions').textContent=`${logs.length} buổi luyện`;
+ $('v9MonthTitle').textContent=new Intl.DateTimeFormat('vi-VN',{month:'long',year:'numeric'}).format(new Date(v9Year,v9Month,1));
+ const offset=(new Date(v9Year,v9Month,1).getDay()+6)%7;
+ const total=new Date(v9Year,v9Month+1,0).getDate();
+ const grid=$('v9CalendarGrid');grid.replaceChildren();
+ for(let i=0;i<offset;i++){const blank=document.createElement('span');blank.className='calendar-day empty';grid.append(blank)}
+ for(let day=1;day<=total;day++){
+  const key=prefix+String(day).padStart(2,'0'),items=byDay.get(key)||[];
+  const b=document.createElement('button');b.type='button';b.className='calendar-day'+(items.length?' studied':'')+(key===v9LocalDate(new Date())?' today':'')+(key===v9Selected?' selected':'');
+  b.setAttribute('aria-label',`${day}/${v9Month+1}/${v9Year}: ${items.length} buổi học`);
+  const num=document.createElement('span');num.textContent=day;b.append(num);
+  if(items.length){const check=document.createElement('span');check.className='check';check.textContent='✓';b.append(check);const count=document.createElement('span');count.className='count';count.textContent=`${items.length} buổi`;b.append(count)}
+  b.onclick=()=>{v9Selected=key;v9RenderCalendar()};grid.append(b)
+ }
+ const chosen=v9Selected?byDay.get(v9Selected)||[]:[];
+ $('v9CalendarDetail').innerHTML=v9Selected?`<b>${v9Esc(v9Selected.split('-').reverse().join('/'))}</b>${chosen.length?`<div>${chosen.map(x=>`<div>✓ ${v9Esc(v9Label(x))} · ${v9Esc(names[x.level]||'')} · ${Math.round(Number(x.seconds)||0)} giây${x.reflection?' — '+v9Esc(x.reflection):''}</div>`).join('')}</div>`:'<div>Chưa có buổi học được lưu.</div>'}`:'Chọn một ngày trên lịch để xem chi tiết.';
+}
+$('v9PrevMonth').onclick=()=>{const d=new Date(v9Year,v9Month-1,1);v9Year=d.getFullYear();v9Month=d.getMonth();v9Selected=null;v9RenderCalendar()};
+$('v9NextMonth').onclick=()=>{const d=new Date(v9Year,v9Month+1,1);v9Year=d.getFullYear();v9Month=d.getMonth();v9Selected=null;v9RenderCalendar()};
+// Render the actual lesson rather than looking up a 90-day lesson using the 8-topic index.
+updateStats=function(){
+ const byDay=[...new Set(logs.map(x=>v9LocalDate(x.date)).filter(Boolean))].sort().reverse();
+ let streak=0,d=new Date();d.setHours(12,0,0,0);if(byDay[0]!==v9LocalDate(d))d.setDate(d.getDate()-1);
+ while(byDay.includes(v9LocalDate(d))){streak++;d.setDate(d.getDate()-1)}
+ $('sessions').textContent=logs.length;
+ $('minutes').textContent=(logs.reduce((s,x)=>s+(Number(x.seconds)||0),0)/60).toFixed(1);
+ $('streak').textContent=streak;
+ $('unique').textContent=new Set(logs.map(x=>x.day?'day-'+x.day:'topic-'+x.topic)).size;
+ const rows=$('historyRows');rows.replaceChildren();
+ if(!logs.length){const tr=rows.insertRow();const td=tr.insertCell();td.colSpan=5;td.textContent='Chưa có buổi luyện nào. Vào Học tập → Luyện nói, bấm Bắt đầu rồi Lưu buổi luyện.'}
+ else logs.slice().reverse().forEach(x=>{const tr=rows.insertRow();const date=tr.insertCell();date.textContent=new Date(x.date).toLocaleString('vi-VN');tr.insertCell().textContent=names[x.level]||'—';tr.insertCell().textContent=v9Label(x);tr.insertCell().textContent=(Number(x.seconds)||0)+'s';tr.insertCell().textContent=x.reflection||'—'});
+ v9RenderCalendar();
+};
+$('complete').onclick=()=>{
+ const seconds=durations[level]-remaining;
+ if(seconds<=0){$('saveMessage').textContent='Bạn cần bấm Bắt đầu và luyện nói ít nhất 1 giây trước khi lưu.';return}
+ const entry={date:new Date().toISOString(),level,topic:topicIndex,day:activeDay||null,topicTitle:getLesson().t.en,seconds,reflection:$('reflection').value.trim()};
+ try{const next=[...logs,entry];localStorage.setItem(storageKey,JSON.stringify(next));logs=next}
+ catch(e){$('saveMessage').textContent='Không lưu được: trình duyệt có thể đang chặn lưu trữ hoặc đã hết dung lượng. '+e.message;return}
+ if(activeDay){planDone[activeDay]=true;try{localStorage.setItem(planKey,JSON.stringify(planDone))}catch(e){console.warn('Không lưu được checklist lộ trình',e)}renderPlan()}
+ updateStats();$('saveMessage').innerHTML='<div class="feedback">✓ Đã lưu vào Nhật ký và đánh dấu đỏ trên lịch hôm nay!</div>';
+ $('reflection').value='';resetTimer();
+};
+updateStats();
+
+
+// V10: resilient progress storage and visible diagnostics.
+const v10Status=document.createElement('div');
+v10Status.id='v10StorageStatus';v10Status.className='note';v10Status.setAttribute('role','status');
+v9History.prepend(v10Status);
+const v10Key=storageKey;
+function v10CanStore(){try{const key='__sm_storage_test__';localStorage.setItem(key,'1');localStorage.removeItem(key);return true}catch(e){return false}}
+let v10StorageAvailable=v10CanStore();
+function v10StatusUpdate(){
+ v10StorageAvailable=v10CanStore();
+ v10Status.textContent=v10StorageAvailable?'✓ Lưu trữ trên trình duyệt đang hoạt động. Các buổi luyện sẽ được giữ lại trên thiết bị này.':'⚠ Trình duyệt đang chặn localStorage. Bạn vẫn có thể xem tiến độ trong phiên hiện tại nhưng cần xuất JSON trước khi đóng trang, nếu không dữ liệu có thể mất.';
+ v10Status.style.color=v10StorageAvailable?'#17653b':'#b45309';
+}
+function v10SyncPlan(){
+ let changed=false;
+ for(const x of logs){if(Number.isInteger(x.day)&&x.day>=1&&x.day<=90&&!planDone[x.day]){planDone[x.day]=true;changed=true}}
+ if(changed){try{localStorage.setItem(planKey,JSON.stringify(planDone))}catch(e){} }
+ renderPlan();
+}
+const v10PreviousUpdateStats=updateStats;
+updateStats=function(){v10PreviousUpdateStats();v10SyncPlan();v10StatusUpdate()};
+$('complete').onclick=()=>{
+ const seconds=durations[level]-remaining;
+ if(seconds<=0){$('saveMessage').textContent='Hãy bắt đầu đồng hồ và luyện nói ít nhất 1 giây trước khi lưu.';return}
+ const entry={date:new Date().toISOString(),level,topic:topicIndex,day:activeDay||null,topicTitle:getLesson().t.en,seconds,reflection:$('reflection').value.trim()};
+ const next=[...logs,entry];let persisted=false;
+ try{localStorage.setItem(v10Key,JSON.stringify(next));persisted=true}catch(e){}
+ logs=next;
+ if(activeDay)planDone[activeDay]=true;
+ try{localStorage.setItem(planKey,JSON.stringify(planDone))}catch(e){}
+ updateStats();
+ $('saveMessage').innerHTML=persisted?'<div class="feedback">✓ Đã lưu buổi học. Nhật ký, lịch và tiến độ đã được cập nhật.</div>':'<div class="feedback" style="background:#fff3e0;color:#92400e">⚠ Đã ghi nhận trong phiên này, nhưng trình duyệt chặn lưu trữ. Vào Tiến độ → Xuất tiến độ JSON ngay để tránh mất dữ liệu.</div>';
+ $('reflection').value='';resetTimer();
+};
+// Clear and import handlers from older versions also refresh the storage indicator and roadmap.
+$('clear').onclick=()=>{if(!confirm('Xóa toàn bộ nhật ký luyện tập trên trình duyệt này?'))return;logs=[];try{localStorage.removeItem(v10Key)}catch(e){};updateStats()};
+const v10OldImport=importInput.onchange;
+importInput.onchange=async function(){await v10OldImport.call(this);updateStats()};
+// The progress page should refresh every time it is opened.
+const v10PreviousSwitch=switchView;
+switchView=function(id){v10PreviousSwitch(id);if(id==='history')updateStats()};
+updateStats();
+
+</script><script>
+
+/* V11 — Flexible roadmap (Model B): target level and freely selected practice level */
+(function(){
+const style=document.createElement('style');style.textContent=`
+
+/* V12 — clear, compact roadmap cards */
+#planItems{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}
+#planItems .v12-lesson{display:flex;flex-direction:column;justify-content:space-between;gap:12px;min-width:0;margin:0;padding:17px;border:1px solid #e0e6f0;border-radius:17px;background:#fff;box-shadow:0 3px 13px rgba(27,48,89,.035)}
+#planItems .v12-lesson.done{background:#f7fcfa;border-color:#cce7d9}
+#planItems .v12-lesson.v12-selected{border-color:#7f9af0;box-shadow:0 0 0 2px rgba(80,112,224,.12)}
+.v12-lesson-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.v12-day{font-size:12px;font-weight:800;color:#6a7791}
+.v12-dot{width:21px;height:21px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:#edf1f7;border:1px solid #dbe2ee;color:transparent;font-size:13px}
+.v12-dot.started{background:#fff0d7;border-color:#f4d59a}
+.v12-dot.done{background:#17885c;border-color:#17885c;color:white;font-weight:900}
+.v12-title{font-size:16px;line-height:1.35;display:block;color:#243551}
+.v12-meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}.v12-meta span{font-size:11px;background:#f0f3fa;border-radius:99px;padding:5px 9px;color:#526581;font-weight:700}
+.v12-detail{font-size:12px;color:#718099;margin-top:11px}.v12-study{width:100%;border:0;border-radius:10px;padding:10px 13px;background:#edf2ff;color:#3157b6;font-weight:800;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.v12-lesson.v12-selected .v12-study{background:#355ed2;color:#fff}.v12-lesson.done .v12-study{background:#e2f4ea;color:#16784e}
+@media(max-width:680px){#planItems{grid-template-columns:1fr}}
+
+.b11-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0}
+.b11-metric{padding:15px;border:1px solid #dce4f1;border-radius:14px;background:#f8faff}
+.b11-metric b{font-size:24px;display:block;color:#243b75}.b11-metric small{color:#61718b}
+.b11-target{display:inline-block;background:#e7edff;color:#304e96;padding:4px 9px;border-radius:99px;font-size:12px;font-weight:700}
+.b11-extra{color:#62738e;font-size:12px}.b11-note{padding:12px;border-radius:12px;background:#fff8e7;color:#705119;margin:12px 0;line-height:1.55}
+.b11-status{font-size:12px;margin-top:7px;color:#425676}.b11-current{border:1px solid #b8c9f6;background:#eff4ff;border-radius:12px;padding:12px;margin:12px 0}
+.b11-progress{height:7px;background:#e6ebf5;border-radius:99px;overflow:hidden;margin:7px 0}.b11-progress>span{display:block;height:100%;background:#5478e6}
+@media(max-width:600px){.b11-summary{grid-template-columns:1fr 1fr}}
+`;document.head.append(style);
+const selectedKey='speaking-matrix-selected-day-v12';
+const plan=$('planItems');const summary=document.createElement('div');summary.id='b11Summary';plan.parentElement.insertBefore(summary,plan);
+
+const current=document.createElement('div');current.id='b11Current';current.className='b11-current';const ctx=document.querySelector('.global-lesson-context')||$('levels');ctx.parentElement.insertBefore(current,ctx.nextSibling);
+const validDay=d=>Number.isInteger(Number(d))&&Number(d)>=1&&Number(d)<=90;
+const target=d=>phaseFor(d).level;
+const qualify=x=>validDay(x.day)&&Number(x.level)===target(Number(x.day))&&Number(x.seconds)>=Math.ceil(durations[target(Number(x.day))]*.8);
+const dayLogs=d=>logs.filter(x=>Number(x.day)===d);
+const completed=d=>dayLogs(d).some(qualify);
+const nextDay=()=>Array.from({length:90},(_,i)=>i+1).find(d=>!completed(d))||90;
+const clean=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const originalRenderTopic=renderTopic;
+renderTopic=function(){originalRenderTopic();const d=activeDay;current.innerHTML=d?`<b>Ngày ${d}/90 · ${clean(dailyLessons[d-1].en)}</b><div>🎯 Cấp độ mục tiêu: <b>${names[target(d)]}</b> · Đang luyện: <b>${names[level]}</b> ${level===target(d)?'✓ đúng cấp độ mục tiêu':'· luyện thêm / ôn tập'}</div><div class="b11-status">${completed(d)?'✓ Đã hoàn thành mục tiêu của ngày này': 'Chưa hoàn thành mục tiêu ngày này. Bạn có thể đổi cấp độ bất cứ lúc nào.'}</div>`:'<b>Chế độ luyện tự do</b><div class="b11-status">Chọn bài trong Lộ trình 90 ngày để liên kết buổi luyện với một ngày cụ thể.</div>'};
+renderPlan=function(){
+ const done=Array.from({length:90},(_,i)=>i+1).filter(completed).length;
+ const total=logs.filter(x=>validDay(x.day)).length;
+ const extra=logs.filter(x=>validDay(x.day)&&!qualify(x)).length;
+ $('daysDone').textContent=`${done} / 90`;$('planPercent').textContent=Math.round(done/90*100)+'%';$('planBar').style.width=done/90*100+'%';
+ $('phaseName').textContent=phaseFor(nextDay()).label;
+ summary.innerHTML=`<div class="b11-summary"><div class="b11-metric"><b>${done}/90</b><small>Chủ đề đạt mục tiêu</small></div><div class="b11-metric"><b>${total}</b><small>Buổi luyện theo lộ trình</small></div><div class="b11-metric"><b>${extra}</b><small>Buổi ôn / luyện khác mức</small></div></div><div class="b11-extra">Tiến độ chỉ tăng khi đạt mục tiêu của từng ngày; mỗi ngày chỉ được tính một lần.</div>`;
+ const f=$('phaseFilter').value,cat=$('planCategory').value;
+ const days=Array.from({length:90},(_,i)=>i+1).filter(d=>(f==='all'||phaseFor(d)===planPhases[Number(f)])&&(cat==='all'||topicFor(d).cat===cat));
+ plan.innerHTML=days.map(d=>{const t=topicFor(d),targetLevel=target(d),sessions=dayLogs(d),done=completed(d),isSelected=activeDay===d;
+ const best=sessions.filter(x=>Number(x.level)===targetLevel).reduce((a,x)=>Math.max(a,Number(x.seconds)||0),0);
+ const pct=Math.min(100,Math.round(best/durations[targetLevel]*100));
+ const state=done?'done':sessions.length?'started':'new';
+ const action=done?'Ôn lại':sessions.length?'Tiếp tục':'Bắt đầu';
+ const detail=done?'Đã đạt mục tiêu':sessions.length?`${sessions.length} buổi luyện · ${pct}% thời lượng mục tiêu`:'Sẵn sàng bắt đầu';
+ return `<article class="plan-item v12-lesson ${state} ${isSelected?'v12-selected':''}" aria-label="Ngày ${d}: ${clean(t.en)}">
+ <div class="v12-lesson-main"><div class="v12-lesson-top"><span class="v12-day">Ngày ${String(d).padStart(2,'0')}</span><span class="v12-dot ${state}" aria-label="${done?'Đã hoàn thành':sessions.length?'Đang học':'Chưa bắt đầu'}">${done?'✓':''}</span></div>
+ <b class="v12-title">${clean(t.en)}</b><div class="v12-meta"><span>${clean(t.cat==='Work & IT'?'Công việc & IT':'Đời sống')}</span><span>🎯 ${names[targetLevel]}</span></div>
+ <div class="v12-detail">${detail}</div>${sessions.length&&!done?`<div class="b11-progress"><span style="width:${pct}%"></span></div>`:''}</div>
+ <button class="v12-study" type="button" data-study="${d}" aria-label="${action} ngày ${d}: ${clean(t.en)}">${action} <span aria-hidden="true">→</span></button></article>`}).join('')||'<p>Không có bài học thuộc bộ lọc này.</p>';
+ plan.querySelectorAll('[data-study]').forEach(b=>b.onclick=()=>{activeDay=Number(b.dataset.study);try{localStorage.setItem(selectedKey,String(activeDay))}catch(e){}level=target(activeDay);renderLevels();renderTopic();resetTimer();switchView('input');window.scrollTo({top:0,behavior:'smooth'})});
+};
+$('phaseFilter').onchange=renderPlan;$('planCategory').onchange=renderPlan;
+$('planNext').onclick=()=>{const d=nextDay();$('phaseFilter').value=String(planPhases.indexOf(phaseFor(d)));$('planCategory').value='all';renderPlan();document.querySelector(`[data-study="${d}"]`)?.scrollIntoView({behavior:'smooth',block:'center'})};
+// Replace old save handler: a session is always logged, completion is derived, never manually toggled.
+$('complete').onclick=()=>{
+ const seconds=durations[level]-remaining;
+ if(seconds<=0){$('saveMessage').textContent='Hãy bắt đầu đồng hồ và luyện nói ít nhất 1 giây trước khi lưu.';return}
+ const entry={date:new Date().toISOString(),level,topic:topicIndex,day:activeDay||null,topicTitle:getLesson().t.en,seconds,reflection:$('reflection').value.trim()};
+ const next=[...logs,entry];let persisted=false;
+ try{localStorage.setItem(storageKey,JSON.stringify(next));persisted=true}catch(e){}
+ logs=next;
+ // No planDone mutation. A day is completed only by a qualifying saved session.
+ updateStats();renderPlan();renderTopic();
+ const success=qualify(entry);
+ $('saveMessage').innerHTML=(persisted?'<div class="feedback">✓ Đã lưu vào Nhật ký. ':'<div class="feedback" style="background:#fff3e0;color:#92400e">⚠ Đã ghi nhận tạm thời; hãy xuất JSON để tránh mất dữ liệu. ')+(entry.day?(success?'✓ Đạt cấp độ mục tiêu của ngày '+entry.day+'.':'Buổi này là luyện thêm hoặc chưa đủ 80% thời lượng mục tiêu; ngày chưa được đánh dấu hoàn thành từ buổi này.'):'Buổi luyện tự do, không gắn với ngày trong lộ trình.')+'</div>';
+ $('reflection').value='';resetTimer();
+};
+// Old code still calls v10SyncPlan; neutralize its automatic completion marking.
+v10SyncPlan=function(){renderPlan()};
+const priorUpdate=updateStats;updateStats=function(){priorUpdate();renderPlan();renderTopic()};
+// Reflect selected level even when changed outside the roadmap.
+$('levels').addEventListener('click',()=>queueMicrotask(()=>{renderTopic();renderPlan()}));
+// Import and clear can change completion status. Recompute from logs.
+$('clear').onclick=()=>{if(!confirm('Xóa toàn bộ nhật ký luyện tập trên trình duyệt này?'))return;logs=[];try{localStorage.removeItem(storageKey)}catch(e){}updateStats()};
+const imp=$('importInput')||document.querySelector('input[type=file]');if(imp)imp.addEventListener('change',()=>setTimeout(()=>{renderPlan();renderTopic()},100));
+// Resume the most recently selected unfinished lesson, otherwise open the next incomplete roadmap day.
+let savedDay=null;try{savedDay=Number(localStorage.getItem(selectedKey))}catch(e){}
+activeDay=validDay(savedDay)&&!completed(savedDay)?savedDay:nextDay();
+level=target(activeDay);
+renderLevels();renderPlan();renderTopic();resetTimer();switchView('input');
+window.__matrixRoadmap={completed,nextDay,target,getActiveDay:()=>activeDay,selectDay:(d)=>{const b=document.querySelector('[data-study=\"'+d+'\"]');if(b)b.click()}};
+})();
+
+
+/* V13 — single-screen workspace, roadmap and progress as accessible dialogs */
+(function(){
+ const css=document.createElement('style');css.textContent=`
+ @media(min-width:850px){html,body{height:100%;overflow:hidden}body{display:flex;flex-direction:column}header{flex:0 0 auto;padding-top:9px;padding-bottom:9px}main{flex:1;min-height:0;width:100%;display:flex;flex-direction:column;padding:10px 20px 12px;overflow:hidden}.hero{padding:12px 20px;border-radius:14px;flex:0 0 auto}.hero h1{font-size:20px;margin-bottom:2px}.hero p{font-size:12px;line-height:1.3}.hero .symbol{font-size:32px}.stats{margin:8px 0;gap:8px;flex:0 0 auto}.stat{padding:8px 13px;border-radius:12px}.stat strong{font-size:20px;margin:1px 0}.global-lesson-context{flex:0 0 auto}.primary-nav{margin:6px 0!important;flex:0 0 auto}.global-levels{flex:0 0 auto}.global-levels .levels{margin:6px 0;gap:8px}.global-levels .level{padding:8px}.global-levels .level strong{font-size:15px}.learning-tabs{margin:7px 0!important;flex:0 0 auto}.learning-tabs .tab{padding:8px 12px}.view.active{min-height:0;overflow-y:auto;flex:1;scrollbar-width:thin}.panel{padding:15px}.footer{display:none}.topic{font-size:20px;margin:8px 0}}
+ .v13-modal{position:fixed;inset:0;z-index:1000;background:rgba(17,31,59,.5);display:none;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(3px)}
+ .v13-modal.open{display:flex}.v13-dialog{width:min(1120px,100%);height:min(92vh,850px);display:flex;flex-direction:column;min-height:0;background:#f5f7fc;border-radius:20px;box-shadow:0 24px 80px #17203a55;overflow:hidden}
+ .v13-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 20px;background:white;border-bottom:1px solid #e1e7f1}.v13-head h2{margin:0;font-size:20px}.v13-close{background:#edf1f9;border-radius:10px;font-size:23px;width:40px;height:40px;color:#334768}
+ .v13-content{overflow:auto;min-height:0;padding:16px 20px;overscroll-behavior:contain}.v13-content>.view{display:block!important;overflow:visible!important;max-height:none!important}.v13-content #planItems{grid-template-columns:repeat(3,minmax(0,1fr))}.v13-content .v12-lesson{padding:12px;gap:8px}.v13-content .v12-detail{margin-top:5px}.v13-content .v12-meta{margin-top:6px}
+ @media(max-width:780px){.v13-modal{padding:5px}.v13-dialog{height:96dvh;border-radius:14px}.v13-content{padding:12px}.v13-content #planItems{grid-template-columns:repeat(2,minmax(0,1fr))}}
+ @media(max-width:520px){.v13-content #planItems{grid-template-columns:1fr}.v13-head h2{font-size:17px}}
+ `;document.head.appendChild(css);
+ const nav=document.querySelector('.primary-nav');if(!nav)return;
+ const dialogs={};let lastFocus=null;
+ for(const [id,title] of [['roadmap','🗓️ Lộ trình 90 ngày'],['history','📊 Tiến độ & Nhật ký']]){
+  const overlay=document.createElement('div');overlay.className='v13-modal';overlay.setAttribute('role','presentation');
+  overlay.innerHTML='<div class="v13-dialog" role="dialog" aria-modal="true" aria-label="'+title+'"><div class="v13-head"><h2>'+title+'</h2><button type="button" class="v13-close" aria-label="Đóng cửa sổ">×</button></div><div class="v13-content"></div></div>';
+  document.body.appendChild(overlay);overlay.querySelector('.v13-content').appendChild(document.getElementById(id));
+  overlay.querySelector('.v13-close').addEventListener('click',closeModal);
+  overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal()});dialogs[id]=overlay;
+ }
+ function closeModal(){Object.values(dialogs).forEach(el=>el.classList.remove('open'));document.body.style.overflow='';if(lastFocus?.isConnected)lastFocus.focus()}
+ function openModal(id){lastFocus=document.activeElement;Object.entries(dialogs).forEach(([key,el])=>el.classList.toggle('open',key===id));dialogs[id].querySelector('.v13-close').focus();if(id==='roadmap'&&typeof renderPlan==='function')renderPlan();if(id==='history'&&typeof updateStats==='function')updateStats()}
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();if(e.key==='Tab'){const active=Object.values(dialogs).find(el=>el.classList.contains('open'));if(!active)return;const els=[...active.querySelectorAll('button:not(:disabled),input:not(:disabled),select:not(:disabled),textarea:not(:disabled),a[href]')].filter(el=>el.getClientRects().length);if(!els.length)return;const first=els[0],last=els[els.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
+ nav.querySelectorAll('[data-section="roadmap"],[data-section="history"]').forEach(btn=>{const clone=btn.cloneNode(true);btn.replaceWith(clone);clone.addEventListener('click',()=>openModal(clone.dataset.section))});
+ const previousSwitch=switchView;switchView=function(id){if(id==='roadmap'||id==='history'){openModal(id);return}closeModal();previousSwitch(id)};
+ const title=document.querySelector('.brand span');if(title)title.textContent='90 Lessons · V13';
+})();
+
+/* V14 — full-size learning workspace dialog */
+(function(){
+ const css=document.createElement('style');css.textContent=`
+ .v14-learning .v13-dialog{width:min(1450px,calc(100vw - 28px));height:min(96dvh,1050px);background:#f5f7fc}
+ .v14-learning .v13-content{display:flex;flex-direction:column;gap:10px;overflow:auto;padding:14px 20px}
+ .v14-learning .global-lesson-context,.v14-learning .global-levels,.v14-learning .learning-tabs{flex:0 0 auto;margin:0!important}
+ .v14-learning .global-levels{padding:12px 16px}.v14-learning .global-levels h2{font-size:17px;margin:0 0 4px}.v14-learning .global-levels p{font-size:12px;margin:0 0 6px}
+ .v14-learning .global-levels .levels{margin:7px 0 0}.v14-learning .global-levels .level{padding:9px}
+ .v14-learning .learning-tabs{display:flex!important;gap:7px;flex-wrap:wrap}.v14-learning .learning-tabs .tab{padding:10px 14px}
+ .v14-learning .view{display:none!important;overflow:visible!important;max-height:none!important;min-height:0!important;flex:none!important}
+ .v14-learning .view.active{display:block!important}
+ .v14-learning .panel{padding:18px}
+ .v14-learning .grid{gap:14px}
+ .v14-learning .v13-head .v14-subtitle{font-size:12px;color:#6b7892;margin:3px 0 0}
+ body[data-section="roadmap"] .v14-learning .global-levels,body[data-section="history"] .v14-learning .global-levels,
+ body[data-section="roadmap"] .v14-learning .global-lesson-context,body[data-section="history"] .v14-learning .global-lesson-context{display:block!important}
+ @media(max-width:700px){.v14-learning{padding:4px}.v14-learning .v13-dialog{width:100%;height:98dvh;border-radius:12px}.v14-learning .v13-content{padding:10px;gap:9px}.v14-learning .learning-tabs{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))}.v14-learning .learning-tabs .tab{font-size:12px;padding:10px 5px}.v14-learning .grid{grid-template-columns:1fr}.v14-learning .panel{padding:13px}}
+ `;document.head.appendChild(css);
+ const nav=document.querySelector('.primary-nav');if(!nav)return;
+ const modal=document.createElement('div');modal.className='v13-modal v14-learning';modal.innerHTML='<div class="v13-dialog" role="dialog" aria-modal="true" aria-label="Học tập Speaking Matrix"><div class="v13-head"><div><h2>🎓 Học tập</h2><p class="v14-subtitle">Input → Sentence Builder → Luyện nói → Speaking Coach</p></div><button type="button" class="v13-close" aria-label="Đóng Học tập">×</button></div><div class="v13-content"></div></div>';
+ document.body.appendChild(modal);
+ const content=modal.querySelector('.v13-content');
+ for(const selector of ['.global-lesson-context','.global-levels','.learning-tabs']){const el=document.querySelector('main '+selector);if(el)content.appendChild(el)}
+ for(const id of ['input','builder','practice','coach']){const el=document.getElementById(id);if(el)content.appendChild(el)}
+ function hide(){modal.classList.remove('open')}
+ function show(){document.querySelectorAll('.v13-modal.open').forEach(el=>el.classList.remove('open'));modal.classList.add('open');modal.querySelector('.v13-close').focus()}
+ modal.querySelector('.v13-close').addEventListener('click',hide);
+ modal.addEventListener('click',e=>{if(e.target===modal)hide()});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))hide()});
+ const learn=nav.querySelector('[data-section="learn"]');if(learn){const clone=learn.cloneNode(true);learn.replaceWith(clone);clone.addEventListener('click',()=>{switchView(document.querySelector('.learning-tabs .tab.active')?.dataset.view||'input')})}
+ const oldSwitch=switchView;
+ switchView=function(id){if(id==='roadmap'||id==='history'){hide();oldSwitch(id);return}oldSwitch(id);show()};
+ // Preserve the last active study tab while opening the learning workspace.
+ const version=document.querySelector('.brand span');if(version)version.textContent='90 Lessons · V26';
+ // Close the learning dialog initially so the home dashboard is visible.
+ hide();
+})();
+</script><script>
+/* V16: presentation-only search and status filters; never modify roadmap completion rules */
+(function(){
+ const search=document.getElementById('v16Search'),counter=document.getElementById('v16Results');
+ const grid=document.getElementById('planItems');
+ if(!search||!grid)return;
+ let status='all';
+ function apply(){
+  const q=search.value.trim().toLocaleLowerCase('vi');let shown=0;
+  grid.querySelectorAll('.v12-lesson').forEach(card=>{
+   const matchStatus=status==='all'||card.classList.contains(status);
+   const title=(card.querySelector('.v12-title')?.textContent||'').toLocaleLowerCase('vi');
+   const day=(card.querySelector('.v12-day')?.textContent||'').toLocaleLowerCase('vi');
+   const dayNumber=(day.match(/\d+/)||[])[0]||'';
+   const matchText=!q||title.includes(q)||day.includes(q)||(q===String(Number(dayNumber)));
+   const visible=matchStatus&&matchText;
+   card.classList.toggle('v16-filtered',!visible);if(visible)shown++;
+  });
+  counter.textContent=`Hiển thị ${shown} bài học`;
+ }
+ search.addEventListener('input',apply);
+ document.querySelectorAll('[data-v16-status]').forEach(btn=>btn.addEventListener('click',()=>{
+  status=btn.dataset.v16Status;
+  document.querySelectorAll('[data-v16-status]').forEach(x=>x.classList.toggle('active',x===btn));apply();
+ }));
+ // renderPlan is a top-level function replaced by the existing Model B implementation.
+ if(typeof renderPlan==='function'){
+  const old=renderPlan;
+  renderPlan=function(){const result=old.apply(this,arguments);apply();return result};
+  apply();
+ }
+})();
+</script><script id="v17-dashboard-script">
+(function(){
+const main=document.querySelector('main'),nav=document.querySelector('.primary-nav');if(!main||!nav)return;
+const dashboard=document.createElement('section');dashboard.className='v17-dashboard';dashboard.setAttribute('aria-label','Tổng quan học tập');dashboard.innerHTML=`
+<article class="v17-panel v17-continue"><div class="v17-head"><span class="v17-eyebrow">Bài học tiếp theo</span><span class="v17-chip" id="v17Stage">Lộ trình 90 ngày</span></div><div><div class="v17-muted" id="v17DayLabel">Ngày 01 / 90</div><h2 class="v17-topic" id="v17Topic">My name and hometown</h2><p class="v17-muted" id="v17Target">Mục tiêu: 30 giây</p></div><div class="v17-divider"></div><h2>Quy trình luyện tập</h2><div class="v17-steps v17-grow"><div class="v17-step">01 · Input Training<small>Học mẫu câu và từ vựng</small></div><div class="v17-step">02 · Sentence Builder<small>Phát triển ý thành câu</small></div><div class="v17-step">03 · Luyện nói<small>Thực hành theo cấp độ</small></div><div class="v17-step">04 · Speaking Coach<small>Nhìn lại và cải thiện</small></div></div><div class="v17-actions"><button type="button" class="v17-action" id="v17Start">▶ Bắt đầu học</button><button type="button" class="v17-action alt" id="v17Roadmap">Xem lộ trình</button></div></article>
+<article class="v17-panel"><div class="v17-head"><h2>Tiến độ 90 ngày</h2><span class="v17-chip" id="v17Percent">0%</span></div><div class="v17-grow" style="display:flex;flex-direction:column;justify-content:center;gap:12px"><div class="v17-count" id="v17Done">0 <span class="v17-muted">/ 90 bài đạt mục tiêu</span></div><div class="v17-progress"><span id="v17Bar" style="width:0%"></span></div><div class="v17-muted" id="v17Phase">Bắt đầu hành trình luyện nói</div></div><button type="button" class="v17-action alt" id="v17OpenProgress">Xem chi tiết tiến độ</button></article>
+<article class="v17-panel"><div class="v17-head"><h2>Hoạt động 7 ngày</h2><span class="v17-chip" id="v17WeekCount">0 / 7 ngày</span></div><div class="v17-week v17-grow" id="v17Week"></div><div class="v17-muted">Dấu <b style="color:#d32f39">✓ đỏ</b> thể hiện ngày đã lưu ít nhất một buổi luyện.</div></article>`;
+nav.insertAdjacentElement('afterend',dashboard);
+function dateKey(v){const d=new Date(v);if(Number.isNaN(d.getTime()))return '';return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
+function refresh(){try{const done=Array.from({length:90},(_,i)=>i+1).filter(d=>window.__matrixRoadmap.completed(d)).length;const d=window.__matrixRoadmap.nextDay();const t=dailyLessons[d-1];document.getElementById('v17DayLabel').textContent='Ngày '+String(d).padStart(2,'0')+' / 90';document.getElementById('v17Topic').textContent=t.en;document.getElementById('v17Target').textContent='Cấp độ mục tiêu: '+names[window.__matrixRoadmap.target(d)]+' · '+(window.__matrixRoadmap.completed(d)?'Đã hoàn thành':'Chưa đạt mục tiêu');document.getElementById('v17Stage').textContent=phaseFor(d).label;document.getElementById('v17Done').innerHTML=done+' <span class="v17-muted">/ 90 bài đạt mục tiêu</span>';const pct=Math.round(done/90*100);document.getElementById('v17Percent').textContent=pct+'%';document.getElementById('v17Bar').style.width=pct+'%';document.getElementById('v17Phase').textContent=done===90?'Đã hoàn thành toàn bộ lộ trình!':'Tiếp tục với bài '+d+' để tiến gần hơn tới mục tiêu.';
+const practiced=new Set(logs.map(x=>dateKey(x.date)));const today=new Date();today.setHours(12,0,0,0);let count=0;const days=[];for(let i=6;i>=0;i--){const day=new Date(today);day.setDate(today.getDate()-i);const key=dateKey(day),yes=practiced.has(key);if(yes)count++;days.push('<div class="v17-day '+(i===0?'today':'')+'"><b>'+['CN','T2','T3','T4','T5','T6','T7'][day.getDay()]+'</b><span>'+day.getDate()+'</span><i>'+(yes?'✓':'·')+'</i></div>')}document.getElementById('v17Week').innerHTML=days.join('');document.getElementById('v17WeekCount').textContent=count+' / 7 ngày';}catch(e){console.warn('Dashboard update:',e)}}
+function openNext(){const d=window.__matrixRoadmap.nextDay();const btn=document.querySelector('[data-study="'+d+'"]');if(btn){btn.click()}else{activeDay=d;level=window.__matrixRoadmap.target(d);renderLevels();renderTopic();resetTimer();switchView('input')}}
+document.getElementById('v17Start').addEventListener('click',openNext);document.getElementById('v17Roadmap').addEventListener('click',()=>switchView('roadmap'));document.getElementById('v17OpenProgress').addEventListener('click',()=>switchView('history'));
+const originalStats=updateStats;updateStats=function(){const result=originalStats.apply(this,arguments);refresh();return result};const originalPlan=renderPlan;renderPlan=function(){const result=originalPlan.apply(this,arguments);refresh();return result};refresh();
+})();
+</script><script id="v18-reports-script">
+(function(){
+ const nav=document.querySelector('.primary-nav');if(!nav)return;
+ const reportButton=document.createElement('button');reportButton.type='button';reportButton.innerHTML='📈 Báo cáo chi tiết';reportButton.className='v18-report-launch';nav.appendChild(reportButton);
+ const progressBtn=document.getElementById('v17OpenProgress');if(progressBtn){progressBtn.textContent='Xem báo cáo trực quan';}
+ const overlay=document.createElement('div');overlay.className='v18-report-overlay';overlay.setAttribute('aria-hidden','true');overlay.innerHTML=`<div class="v18-report-dialog" role="dialog" aria-modal="true" aria-labelledby="v18ReportTitle"><div class="v18-report-header"><div><h2 id="v18ReportTitle">Báo cáo học tập</h2><p>Phân tích từ nhật ký luyện nói thực tế của bạn</p></div><button class="v18-report-close" aria-label="Đóng báo cáo">×</button></div><div class="v18-report-body"><div class="v18-report-toolbar"><span class="v18-report-note">Không có dữ liệu giả. Biểu đồ cập nhật khi bạn lưu buổi luyện.</span><label><span class="v18-report-note">Khoảng thời gian: </span><select id="v18Range"><option value="7">7 ngày</option><option value="30" selected>30 ngày</option><option value="90">90 ngày</option><option value="all">Toàn bộ</option></select></label></div><div class="v18-report-kpis" id="v18Kpis"></div><div class="v18-charts"><article class="v18-chart-card"><h3>Thời gian luyện nói</h3><p>Số phút luyện tập theo ngày</p><div id="v18TimeChart"></div></article><article class="v18-chart-card"><h3>Phân bổ cấp độ</h3><p>Số buổi theo 30 giây, 1 phút, 2 phút, 3 phút</p><div id="v18LevelChart"></div></article><article class="v18-chart-card"><h3>Thói quen học tập</h3><p>Hoạt động trong 12 tuần gần nhất (mỗi ô là một ngày)</p><div id="v18HabitChart"></div></article><article class="v18-chart-card"><h3>Tiến độ lộ trình</h3><p>Số bài đạt mục tiêu theo từng giai đoạn</p><div id="v18RoadmapChart"></div></article></div><div class="v18-report-summary"><article class="v18-summary-card"><h3>Phân tích nhanh</h3><div id="v18Insights"></div></article><article class="v18-summary-card"><h3>Nhật ký và dữ liệu</h3><p>Nhật ký chi tiết, xuất JSON và lịch dấu tích đỏ vẫn nằm trong mục Tiến độ.</p><p>Chỉ tính bài hoàn thành khi buổi luyện đáp ứng đúng cấp độ mục tiêu và quy tắc thời lượng của mô hình B.</p><p id="v18DataNote"></p></article></div></div><div class="v18-report-footer"><button id="v18History">Xem nhật ký</button><button id="v18Export">Xuất dữ liệu JSON</button><button class="primary" id="v18CloseBottom">Đóng báo cáo</button></div></div>`;
+ document.body.appendChild(overlay);
+ const $=id=>document.getElementById(id);let lastFocus=null;
+ function open(){lastFocus=document.activeElement;document.querySelectorAll('.v13-modal.open').forEach(x=>x.classList.remove('open'));overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');document.body.classList.add('v18-no-scroll');draw();overlay.querySelector('.v18-report-close').focus()}
+ function close(){overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');document.body.classList.remove('v18-no-scroll');lastFocus?.focus?.()}
+ reportButton.onclick=open;if(progressBtn)progressBtn.onclick=open;
+ overlay.querySelector('.v18-report-close').onclick=close;$('v18CloseBottom').onclick=close;
+ overlay.addEventListener('click',e=>{if(e.target===overlay)close()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('open')){e.stopImmediatePropagation();close()}if(e.key==='Tab'&&overlay.classList.contains('open')){const f=[...overlay.querySelectorAll('button,select')].filter(x=>!x.disabled);if(!f.length)return;const first=f[0],last=f[f.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}},true);
+ $('v18Range').onchange=draw;$('v18History').onclick=()=>{close();switchView('history')};$('v18Export').onclick=()=>document.getElementById('export')?.click();
+ const colors=['#3158d5','#62a4f5','#20a6a1','#f1b55a'];
+ function key(d){const x=new Date(d);if(isNaN(x.getTime()))return '';return [x.getFullYear(),String(x.getMonth()+1).padStart(2,'0'),String(x.getDate()).padStart(2,'0')].join('-')}
+ function dayOffset(n){const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()-n);return d}
+ function esc(v){return String(v).replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]))}
+ function svg(content,w=600,h=230){return `<svg viewBox="0 0 ${w} ${h}" role="img" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">${content}</svg>`}
+ function empty(){return '<div class="v18-chart-empty">Chưa có dữ liệu luyện tập trong khoảng thời gian này.<br>Hãy lưu một buổi luyện để bắt đầu.</div>'}
+ function draw(){
+  const range=$('v18Range').value;const from=range==='all'?null:dayOffset(Number(range)-1);const fromKey=from?key(from):'';
+  const valid=logs.filter(x=>x&&x.date&&!isNaN(new Date(x.date).getTime()));const selected=valid.filter(x=>!fromKey||key(x.date)>=fromKey);const count=selected.length;const seconds=selected.reduce((n,x)=>n+(Number(x.seconds)||0),0);const activeDays=new Set(selected.map(x=>key(x.date))).size;const topics=new Set(selected.map(x=>x.day||x.topic)).size;
+  $('v18Kpis').innerHTML=[['Buổi luyện',count,'buổi đã lưu'],['Thời gian nói',(seconds/60).toFixed(1),'phút'],['Ngày có học',activeDays,'ngày'],['Chủ đề luyện',topics,'chủ đề']].map(a=>`<div class="v18-kpi"><span>${a[0]}</span><strong>${a[1]}</strong><small>${a[2]}</small></div>`).join('');
+  const buckets=range==='7'?7:range==='30'?30:range==='90'?90:Math.max(7,Math.min(180,valid.length?Math.ceil((new Date()-new Date(valid[0].date))/86400000)+1:30));
+  const dates=Array.from({length:buckets},(_,i)=>key(dayOffset(buckets-i-1)));const totals=new Map();selected.forEach(x=>totals.set(key(x.date),(totals.get(key(x.date))||0)+(Number(x.seconds)||0)/60));
+  const values=dates.map(d=>totals.get(d)||0);const max=Math.max(1,...values);const W=600,H=230,L=35,R=10,T=15,B=30,iw=W-L-R,ih=H-T-B;
+  let bars='';const gap= Math.max(1,iw/buckets*.18),bw=Math.max(1,iw/buckets-gap);
+  for(let i=0;i<buckets;i++){const v=values[i],h=v/max*ih;bars+=`<rect x="${(L+i*iw/buckets).toFixed(2)}" y="${(T+ih-h).toFixed(2)}" width="${bw.toFixed(2)}" height="${h.toFixed(2)}" rx="${Math.min(3,bw/3)}" fill="#3158d5"><title>${dates[i]}: ${v.toFixed(1)} phút</title></rect>`}
+  let grid='';for(let i=0;i<=4;i++){const y=T+ih-i*ih/4;grid+=`<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="#edf0f5"/><text x="${L-7}" y="${y+4}" font-size="11" text-anchor="end" fill="#7c899d">${(max*i/4).toFixed(max<4?1:0)}</text>`}
+  $('v18TimeChart').innerHTML=count?svg(grid+bars+`<text x="${L}" y="${H-6}" font-size="11" fill="#7c899d">${dates[0]}</text><text x="${W-R}" y="${H-6}" text-anchor="end" font-size="11" fill="#7c899d">${dates.at(-1)}</text>`):empty();
+  const levels=[0,0,0,0];selected.forEach(x=>{const n=Number(x.level);if(n>=0&&n<4)levels[n]++});const total=levels.reduce((a,b)=>a+b,0);let donut='';if(total){let offset=0;levels.forEach((v,i)=>{const len=v/total*100;if(len){donut+=`<circle cx="145" cy="112" r="75" fill="none" stroke="${colors[i]}" stroke-width="25" stroke-dasharray="${len} ${100-len}" stroke-dashoffset="${-offset}" pathLength="100" transform="rotate(-90 145 112)"/>`;offset+=len}});donut+=`<circle cx="145" cy="112" r="53" fill="#fff"/><text x="145" y="108" text-anchor="middle" font-size="28" font-weight="800" fill="#172b4c">${total}</text><text x="145" y="127" text-anchor="middle" font-size="12" fill="#77849b">buổi luyện</text>`;levels.forEach((v,i)=>{donut+=`<rect x="295" y="${45+i*39}" width="13" height="13" rx="3" fill="${colors[i]}"/><text x="318" y="${56+i*39}" font-size="14" fill="#34445e">${['30 giây','1 phút','2 phút','3 phút'][i]} · ${v} buổi</text>`})}
+  $('v18LevelChart').innerHTML=total?svg(donut):empty();
+  const habitDates=Array.from({length:84},(_,i)=>key(dayOffset(83-i)));const sessionsByDate=new Map();valid.forEach(x=>sessionsByDate.set(key(x.date),(sessionsByDate.get(key(x.date))||0)+1));let heat='';const cell=18,step=24,startX=65,startY=22;
+  habitDates.forEach((d,i)=>{const week=Math.floor(i/7),dow=i%7,n=sessionsByDate.get(d)||0;const fill=n===0?'#eef2f8':n===1?'#f7a6a9':n===2?'#ed666e':'#c92839';heat+=`<rect x="${startX+week*step}" y="${startY+dow*step}" width="${cell}" height="${cell}" rx="4" fill="${fill}"><title>${d}: ${n} buổi</title></rect>`});for(let i=0;i<7;i++)heat+=`<text x="48" y="${startY+i*step+13}" font-size="11" text-anchor="end" fill="#7b899d">${['T2','T3','T4','T5','T6','T7','CN'][i]}</text>`;
+  heat+=`<text x="${startX}" y="216" font-size="11" fill="#77849b">12 tuần trước</text><text x="${startX+11*step+cell}" y="216" font-size="11" fill="#77849b" text-anchor="end">Hiện tại</text>`;
+  $('v18HabitChart').innerHTML=svg(heat,390,230);
+  const ranges=[[1,21],[22,42],[43,66],[67,90]],doneCounts=ranges.map(([a,b])=>Array.from({length:b-a+1},(_,i)=>a+i).filter(d=>window.__matrixRoadmap.completed(d)).length);let progress='';ranges.forEach(([a,b],i)=>{const y=26+i*50,done=doneCounts[i],length=b-a+1;progress+=`<text x="10" y="${y+14}" font-size="13" fill="#34445e">${['30 giây','1 phút','2 phút','3 phút'][i]}</text><rect x="110" y="${y}" width="390" height="20" rx="7" fill="#eef2f8"/><rect x="110" y="${y}" width="${390*done/length}" height="20" rx="7" fill="${colors[i]}"/><text x="${W-10}" y="${y+15}" font-size="13" text-anchor="end" fill="#34445e">${done}/${length}</text>`});$('v18RoadmapChart').innerHTML=svg(progress);
+  const complete=Array.from({length:90},(_,i)=>i+1).filter(d=>window.__matrixRoadmap.completed(d)).length;const avg=count?(seconds/count).toFixed(0):'0';$('v18Insights').innerHTML=`<p><strong>${complete}/90 bài</strong> đã đạt mục tiêu lộ trình.</p><p>Trung bình <strong>${avg} giây</strong> mỗi buổi luyện trong khoảng đã chọn.</p><p>${activeDays?`Bạn đã học vào <strong>${activeDays} ngày</strong>. Tiếp tục duy trì nhịp học đều đặn.`:'Chưa có buổi luyện trong khoảng thời gian này.'}</p>`;
+  $('v18DataNote').textContent='Dữ liệu đang được lưu trên trình duyệt này. Hãy xuất JSON định kỳ để sao lưu.';
+ }
+ const originalUpdate=updateStats;updateStats=function(){const result=originalUpdate.apply(this,arguments);if(overlay.classList.contains('open'))draw();return result};
+})();
+</script><script id="v19-clean-dashboard-script">(function(){
+const main=document.querySelector('main');if(!main)return;
+const heading=document.createElement('div');heading.className='v19-intro';heading.innerHTML='<div><h1>Học tiếng Anh mỗi ngày</h1><p>Tiếp tục bài đang học và duy trì thói quen luyện nói của bạn.</p></div><span class="v19-date" id="v19Date"></span>';
+main.prepend(heading);
+const duplicate=document.getElementById('globalLessonContext');if(duplicate)duplicate.style.display='none';
+const date=document.getElementById('v19Date');if(date)date.textContent=new Intl.DateTimeFormat('vi-VN',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date());
+const nav=document.querySelector('.primary-nav');if(nav){const buttons=[...nav.querySelectorAll('button')];buttons.forEach(b=>{b.textContent=b.textContent.replace(/^[🎓🗓️📊📈📚🎤]\s*/u,'').trim()});}
+})();</script>
+<script id="v21-icons">
+(()=>{
+ const paths={book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',calendar:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/>',chart:'<path d="M3 3v18h18M7 16v-4M12 16V8M17 16V5"/>',report:'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/>',puzzle:'<path d="M8 3h3a2 2 0 1 0 4 0h3v6a2 2 0 1 1 0 4v8h-6a2 2 0 1 0-4 0H3v-6a2 2 0 1 0 0-4V3z"/>',mic:'<rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v5M8 22h8"/>',spark:'<path d="m12 3 1.9 6.1L20 11l-6.1 1.9L12 19l-1.9-6.1L4 11l6.1-1.9L12 3z"/>'};
+ function icon(name){return '<span class="v21-icon" aria-hidden="true"><svg viewBox="0 0 24 24">'+paths[name]+'</svg></span>'}
+ function decorate(){
+ const nav=document.querySelector('.primary-nav');if(nav){const names=['book','calendar','chart','report'];[...nav.querySelectorAll('button')].forEach((b,i)=>{if(!b.querySelector('.v21-icon'))b.insertAdjacentHTML('afterbegin',icon(names[i]||'book'))})}
+ document.querySelectorAll('.v17-continue .v17-step').forEach((el,i)=>{if(!el.querySelector('.v21-icon'))el.insertAdjacentHTML('afterbegin',icon(['book','puzzle','mic','spark'][i]||'book'))});
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',decorate);else decorate();
+})();
+</script>
+<style id="v24-learner-style">
+/* Profile selection is a separate entry screen, not a dashboard popup. */
+body.sm-gated > header,body.sm-gated > main,body.sm-gated > .v18-report-overlay,body.sm-gated > .v13-modal-overlay{visibility:hidden!important;pointer-events:none!important}
+.sm-entry{position:fixed;inset:0;z-index:200000;background:#f5f7fc;display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto;font-family:inherit}
+.sm-entry[hidden],.sm-create-mask[hidden]{display:none!important}
+.sm-entry-inner{width:min(560px,100%);margin:auto}.sm-entry-brand{font-size:17px;font-weight:800;color:#365bd4;display:flex;align-items:center;gap:9px;margin-bottom:34px}.sm-entry-title{font-size:34px;letter-spacing:-1.2px;line-height:1.2;margin:0 0 10px;color:#172b4d}.sm-entry-sub{font-size:15px;color:#738099;margin:0 0 28px;line-height:1.6}
+.sm-entry-list{display:grid;gap:11px;max-height:min(48vh,420px);overflow:auto;padding:3px}.sm-person{width:100%;display:flex;align-items:center;text-align:left;gap:15px;padding:17px;background:white;border:1px solid #e1e7f0;border-radius:17px;cursor:pointer;box-shadow:0 3px 12px #20345408;color:#1d2e4d;transition:.15s}.sm-person:hover,.sm-person:focus-visible{border-color:#6e8ef3;box-shadow:0 7px 24px #315ed41c;transform:translateY(-1px)}.sm-avatar{height:46px;width:46px;border-radius:14px;display:grid;place-items:center;background:#eaf0ff;color:#315bd0;font-size:20px;font-weight:800;flex-shrink:0}.sm-person-info{flex:1;min-width:0}.sm-person-info strong{display:block;font-size:16px}.sm-person-info small{display:block;color:#8290a7;font-size:12px;margin-top:4px}.sm-person-arrow{color:#5975b9;font-size:24px}.sm-entry-add{margin-top:15px;width:100%;border:1.5px dashed #b9c7e5;background:#f9fbff;border-radius:15px;color:#315bd0;padding:17px;font-weight:750;font-size:15px;cursor:pointer}.sm-entry-add:hover{background:#eef3ff}.sm-entry-foot{text-align:center;margin-top:24px;color:#9aa5b6;font-size:12px}
+.sm-header-user{position:relative;margin-left:auto}.sm-header-user-button{display:flex;align-items:center;gap:10px;background:#f3f6fc;border:1px solid #e2e8f3;border-radius:13px;padding:9px 13px;color:#263c66;font-weight:700;cursor:pointer}.sm-header-user-button:hover{background:#eaf0ff}.sm-header-user-button .sm-mini-avatar{background:#dce7ff;color:#315bd0;border-radius:50%;width:30px;height:30px;display:grid;place-items:center}.sm-header-dropdown{position:absolute;right:0;top:calc(100% + 10px);z-index:99998;width:265px;background:#fff;border:1px solid #e1e7f1;border-radius:16px;padding:9px;box-shadow:0 18px 50px #20365b30}.sm-header-dropdown[hidden]{display:none}.sm-header-dropdown-title{font-size:12px;font-weight:800;color:#8793a7;padding:10px}.sm-header-choice{display:flex;gap:10px;align-items:center;width:100%;border:0;border-radius:10px;background:transparent;text-align:left;padding:11px;cursor:pointer;color:#243857;font-weight:650}.sm-header-choice:hover,.sm-header-choice.selected{background:#eff4ff}.sm-header-choice .sm-check{margin-left:auto;color:#315bd0}.sm-header-add{border-top:1px solid #e9edf5;margin-top:6px;padding-top:8px;color:#315bd0}
+.sm-create-mask{position:fixed;inset:0;z-index:200010;background:#15243c8c;display:grid;place-items:center;padding:18px;backdrop-filter:blur(3px)}.sm-create-card{background:white;border-radius:22px;width:min(440px,100%);padding:27px;box-shadow:0 22px 70px #172b4d44}.sm-create-card h2{margin:0 0 8px;font-size:24px;color:#1c2c48}.sm-create-card p{color:#738199;line-height:1.5}.sm-create-card label{display:block;font-weight:700;margin-top:20px}.sm-create-card input{display:block;width:100%;box-sizing:border-box;padding:13px;margin:9px 0;border:1px solid #cdd7e7;border-radius:11px;font-size:16px}.sm-create-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}.sm-create-actions button{border:0;border-radius:10px;padding:12px 17px;font-weight:750;cursor:pointer}.sm-create-cancel{background:#eef1f7;color:#3b4b64}.sm-create-submit{background:#365dd7;color:white}.sm-create-error{color:#c12b36;font-size:13px;min-height:18px}
+@media(max-width:650px){.sm-entry-title{font-size:28px}.sm-header-user-button .sm-hello{display:none}.sm-header-user-button{padding:6px 9px}.sm-header-dropdown{right:0;width:min(265px,90vw)}}
+</style>
+<style id="v25-delete-style">
+.sm-entry-list{display:grid;grid-template-columns:minmax(0,1fr) 42px;gap:10px;align-items:stretch}
+.sm-entry-list .sm-person{min-width:0;width:100%}
+.sm-person-delete{border:1px solid #e2e8f0;background:#fff;color:#a33;border-radius:12px;cursor:pointer;font-size:17px}
+.sm-person-delete:hover{background:#fff1f2;border-color:#fda4af}
+.sm-header-dropdown{display:grid;grid-template-columns:minmax(0,1fr) 32px;gap:3px;align-items:center}
+.sm-header-dropdown[hidden]{display:none!important}
+.sm-header-dropdown-title,.sm-header-add{grid-column:1/-1}
+.sm-header-choice{min-width:0}
+.sm-header-delete{background:transparent;border:0;color:#b45353;cursor:pointer;font-size:22px;border-radius:8px}
+.sm-header-delete:hover{background:#fff1f2}
+</style><style id="v26-confirm-style">
+.sm-confirm-mask[hidden]{display:none!important}
+.sm-confirm-mask{position:fixed;inset:0;z-index:999999;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(15,23,42,.56);backdrop-filter:blur(5px)}
+.sm-confirm-card{width:min(100%,430px);background:#fff;border-radius:22px;padding:30px;box-shadow:0 25px 80px rgba(15,23,42,.25);font-family:inherit;color:#182235}
+.sm-confirm-icon{width:50px;height:50px;border-radius:15px;background:#fff0f0;color:#dc2626;display:grid;place-items:center;font-size:27px;font-weight:800;margin-bottom:18px}
+.sm-confirm-card h2{margin:0 0 10px;font-size:23px;line-height:1.25;color:#172033}
+.sm-confirm-card p{font-size:15px;line-height:1.6;margin:0 0 16px;color:#475569}
+.sm-confirm-warning{background:#fff7f7;border:1px solid #fecaca;border-radius:12px;padding:13px 15px;font-size:13px;line-height:1.6;color:#9f3030}
+.sm-confirm-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:24px}
+.sm-confirm-actions button{border:0;border-radius:11px;padding:12px 17px;font:600 14px inherit;cursor:pointer}
+#smConfirmCancel{background:#f1f5f9;color:#334155}
+#smConfirmDelete{background:#dc2626;color:white}
+#smConfirmCancel:hover{background:#e2e8f0}
+#smConfirmDelete:hover{background:#b91c1c}
+@media(max-width:480px){.sm-confirm-card{padding:22px}.sm-confirm-actions{flex-direction:column-reverse}.sm-confirm-actions button{width:100%}}
+</style><script id="v24-profile-ui">
+(function(){
+ const api=window.SMProfiles;if(!api)return;
+ const gateKey='sm-v24-session-learner';
+ const profileList=()=>api.getProfiles();
+ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ document.body.classList.add('sm-gated');
+ const entry=document.createElement('div');entry.className='sm-entry';entry.id='smEntry';
+ entry.innerHTML='<div class="sm-entry-inner"><div class="sm-entry-brand">◉ Speaking Matrix</div><h1 class="sm-entry-title" id="smEntryTitle">Ai sẽ học hôm nay?</h1><p class="sm-entry-sub" id="smEntrySub">Chọn hồ sơ để tiếp tục lộ trình 90 ngày của riêng bạn.</p><div class="sm-entry-list" id="smEntryList"></div><button class="sm-entry-add" id="smEntryAdd" type="button">＋ Tạo người học mới</button><div class="sm-entry-foot">Mỗi người học có nhật ký, tiến độ và báo cáo riêng trên thiết bị này.</div></div>';
+ document.body.appendChild(entry);
+ const modal=document.createElement('div');modal.className='sm-create-mask';modal.hidden=true;modal.innerHTML='<div class="sm-create-card" role="dialog" aria-modal="true" aria-labelledby="smCreateTitle"><h2 id="smCreateTitle">Tạo người học mới</h2><p>Nhập tên để bắt đầu lộ trình 90 ngày của riêng bạn.</p><form id="smCreateForm"><label for="smCreateName">Tên người học</label><input id="smCreateName" required maxlength="45" autocomplete="off" placeholder="Ví dụ: Sang"><div class="sm-create-error" id="smCreateError" aria-live="polite"></div><div class="sm-create-actions"><button type="button" class="sm-create-cancel" id="smCreateCancel">Hủy</button><button type="submit" class="sm-create-submit">Tạo và bắt đầu</button></div></form></div>';document.body.appendChild(modal);
+ const confirmMask=document.createElement('div');confirmMask.className='sm-confirm-mask';confirmMask.hidden=true;
+ confirmMask.innerHTML=`<div class="sm-confirm-card" role="alertdialog" aria-modal="true" aria-labelledby="smConfirmTitle" aria-describedby="smConfirmDesc"><div class="sm-confirm-icon" aria-hidden="true">!</div><h2 id="smConfirmTitle">Xóa người học?</h2><p id="smConfirmDesc"></p><div class="sm-confirm-warning">Toàn bộ nhật ký, tiến độ và báo cáo của hồ sơ này trên thiết bị sẽ bị xóa vĩnh viễn.</div><div class="sm-confirm-actions"><button type="button" id="smConfirmCancel">Giữ người học</button><button type="button" id="smConfirmDelete">Xóa người học</button></div></div>`;
+ document.body.appendChild(confirmMask);
+ let pendingDelete=null, previousFocus=null;
+ function closeDelete(){confirmMask.hidden=true;pendingDelete=null;if(previousFocus?.isConnected)previousFocus.focus()}
+ confirmMask.querySelector('#smConfirmCancel').onclick=closeDelete;
+ confirmMask.querySelector('#smConfirmDelete').onclick=()=>{const id=pendingDelete;if(!id)return;closeDelete();const result=api.delete(id);sessionStorage.removeItem(gateKey);if(result==='active'){location.reload();return}renderEntry();renderHeader()};
+ confirmMask.addEventListener('click',e=>{if(e.target===confirmMask)closeDelete()});
+ const list=entry.querySelector('#smEntryList');
+ function openCreate(){modal.hidden=false;modal.querySelector('#smCreateName').value='';modal.querySelector('#smCreateError').textContent='';modal.querySelector('#smCreateName').focus()}
+ function closeCreate(){modal.hidden=true}
+ function renderEntry(){const ps=profileList();entry.querySelector('#smEntryTitle').textContent=ps.length?'Ai sẽ học hôm nay?':'Chào mừng đến Speaking Matrix';entry.querySelector('#smEntrySub').textContent=ps.length?'Chọn người học để tiếp tục lộ trình riêng.':'Tạo người học đầu tiên để bắt đầu luyện nói.';list.innerHTML='';ps.forEach(p=>{const btn=document.createElement('button');btn.type='button';btn.className='sm-person';btn.innerHTML='<span class="sm-avatar">'+esc(p.name.charAt(0).toUpperCase())+'</span><span class="sm-person-info"><strong>'+esc(p.name)+'</strong><small>Tiếp tục lộ trình 90 ngày</small></span><span class="sm-person-arrow">›</span>';btn.onclick=()=>choose(p.id);list.appendChild(btn);
+ const del=document.createElement('button');del.type='button';del.className='sm-person-delete';del.setAttribute('aria-label','Xóa người học '+p.name);del.title='Xóa người học';del.textContent='🗑';del.onclick=()=>requestDelete(p.id);list.appendChild(del)})}
+ function requestDelete(id){
+ const p=profileList().find(x=>x.id===id);if(!p)return;
+ previousFocus=document.activeElement;pendingDelete=id;
+ confirmMask.querySelector('#smConfirmDesc').textContent='Bạn có chắc muốn xóa hồ sơ “'+p.name+'”?';
+ confirmMask.hidden=false;confirmMask.querySelector('#smConfirmCancel').focus();
+ }
+ function choose(id){sessionStorage.setItem(gateKey,id);if(api.getActive()===id){entry.hidden=true;document.body.classList.remove('sm-gated');renderHeader();}else api.switch(id)}
+ function openRoadmap(){setTimeout(()=>{const b=document.querySelector('.primary-nav [data-section="roadmap"]');if(b)b.click()},180)}
+ entry.querySelector('#smEntryAdd').onclick=openCreate;modal.querySelector('#smCreateCancel').onclick=closeCreate;modal.addEventListener('click',e=>{if(e.target===modal)closeCreate()});
+ modal.querySelector('#smCreateForm').onsubmit=e=>{e.preventDefault();try{const id=api.create(modal.querySelector('#smCreateName').value);sessionStorage.setItem(gateKey,id);api.switch(id)}catch(err){modal.querySelector('#smCreateError').textContent=err.message}};
+ const header=document.querySelector('header');const user=document.createElement('div');user.className='sm-header-user';header?.appendChild(user);
+ function renderHeader(){const p=profileList().find(x=>x.id===api.getActive());if(!p)return;user.innerHTML='<button type="button" class="sm-header-user-button" id="smHeaderButton" aria-expanded="false"><span class="sm-mini-avatar">'+esc(p.name[0].toUpperCase())+'</span><span class="sm-hello">Xin chào, '+esc(p.name)+'</span><span aria-hidden="true">⌄</span></button><div class="sm-header-dropdown" id="smHeaderDropdown" hidden><div class="sm-header-dropdown-title">CHUYỂN NGƯỜI HỌC</div></div>';
+ const dropdown=user.querySelector('#smHeaderDropdown');profileList().forEach(x=>{const b=document.createElement('button');b.type='button';b.className='sm-header-choice'+(x.id===p.id?' selected':'');b.innerHTML='<span class="sm-avatar" style="width:30px;height:30px;border-radius:9px;font-size:14px">'+esc(x.name[0].toUpperCase())+'</span><span>'+esc(x.name)+'</span>'+(x.id===p.id?'<span class="sm-check">✓</span>':'');b.onclick=()=>{dropdown.hidden=true;choose(x.id)};dropdown.appendChild(b);
+ const del=document.createElement('button');del.type='button';del.className='sm-header-delete';del.title='Xóa '+x.name;del.setAttribute('aria-label','Xóa '+x.name);del.textContent='×';del.onclick=e=>{e.stopPropagation();dropdown.hidden=true;requestDelete(x.id)};dropdown.appendChild(del)});
+ const add=document.createElement('button');add.type='button';add.className='sm-header-choice sm-header-add';add.textContent='＋ Thêm người học';add.onclick=()=>{dropdown.hidden=true;openCreate()};dropdown.appendChild(add);
+ user.querySelector('#smHeaderButton').onclick=()=>{dropdown.hidden=!dropdown.hidden;user.querySelector('#smHeaderButton').setAttribute('aria-expanded',String(!dropdown.hidden))};
+ }
+ document.addEventListener('click',e=>{const d=user.querySelector('#smHeaderDropdown');if(d&&!user.contains(e.target))d.hidden=true});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!confirmMask.hidden)closeDelete();closeCreate();const d=user.querySelector('#smHeaderDropdown');if(d)d.hidden=true}});
+ renderEntry();
+ const selected=sessionStorage.getItem(gateKey);
+ if(selected&&profileList().some(p=>p.id===selected)&&api.getActive()===selected){entry.hidden=true;document.body.classList.remove('sm-gated');renderHeader();}
+ document.getElementById('complete')?.addEventListener('click',()=>setTimeout(()=>api.save(),20));
+ document.getElementById('clear')?.addEventListener('click',()=>setTimeout(()=>api.save(),20));
+ window.addEventListener('storage',e=>{if(e.key===api.prefix+'active'&&e.newValue!==api.getActive())location.reload()});
+})();
+</script></body></html>
